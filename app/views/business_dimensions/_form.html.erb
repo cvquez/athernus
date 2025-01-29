@@ -1,0 +1,26 @@
+
+<% model_name = t('activerecord.models.business_dimension.one', default: 'Business dimension') %>
+<% title = @business_dimension.persisted? ? "Editar #{model_name}" : "Nuevo #{model_name}" %>
+<% title_sm = @business_dimension.persisted? ? "Última modificación: #{strftime @business_dimension.updated_at}" : '' %>
+<% content_for :title, title %>
+<% content_for :page_title, title %>
+<% content_for :page_title_small, title_sm %>
+<% content_for :page_actions do %>
+  <%= link_to business_dimensions_path, class: 'btn btn-white' do %>
+    <%= feather 'arrow-left' %> Volver a la lista
+  <% end  %>
+  <a href="#submit" class="btn btn-primary"><%= feather :plus %> Guardar</a>
+<% end %>
+
+<%= simple_form_for(@business_dimension) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <%= f.input :name %>
+
+  <div class="form-actions">
+    <%= f.button :submit, class: 'btn btn-primary' %>
+    <%= link_to 'Ver registro', @business_dimension, class: 'btn btn-secondary' if @business_dimension.id %>
+    <%= link_to 'Volver', business_dimensions_path, class: 'btn btn-secondary' %>
+  </div>
+<% end %>

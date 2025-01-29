@@ -1,0 +1,11 @@
+<% @return_url = permissions_path %>
+
+<% content_for :title do %>
+  <strong>Nuevo permiso</strong>
+<% end %>
+<% content_for :subtitle do %>
+<% end %>
+<% content_for :content_body do %>
+  <%= render 'form', permission: @permission %>
+<% end %>
+<%= render partial: "shared/admin_edit" %>

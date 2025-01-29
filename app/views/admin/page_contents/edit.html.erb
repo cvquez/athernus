@@ -1,0 +1,8 @@
+<!-- app/views/admin/page_contents/edit.html.erb -->
+
+<%= form_for [:admin, @page_content] do |f| %>
+  <%= f.text_field :title %>
+  <%= f.text_area :body_text %>
+  <%= f.file_field :image %>
+  <%= f.submit 'Guardar cambios' %>
+<% end %>

@@ -1,0 +1,66 @@
+<% model_name = t('activerecord.models.admin.other', default: 'Admins') %>
+<% title = "#{model_name}" %>
+<% content_for :title, title %>
+<% content_for :page_title, title %>
+<% content_for :page_actions do %>
+  <a href="<%= new_admin_url %>" class="btn btn-primary"><%= feather :plus %> Nuevo</a>
+<% end %>
+<% content_for :table_filter do %>
+  <%= render "shared/index_search_form" %>
+<% end %>
+
+<div class="row">
+  <div class="col-12">
+    <table class="table table-hover table-striped" style="width:100%">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>
+          <%= sort_link @search, 'name', t('activerecord.attributes.admin.name') %>
+        </th>
+        <th>
+          <%= sort_link @search, 'email', t('activerecord.attributes.admin.email') %>
+        </th>
+        <th>
+          <%= sort_link @search, 'role_id', t('activerecord.attributes.admin.role_id') %>
+        </th>
+        <th>Estado</th>
+        <th class="text-center">Acciones</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @admins.each do |admin| %>
+        <tr>
+          <td><%= admin.id %></td>
+          <td>
+            <div>
+              <%= image_tag avatar_for(admin), width: 50, class: 'rounded me-2' %>
+              <%= admin.name %>
+            </div>
+          </td>
+          <td><%= admin.email %></td>
+          <td><%= admin.role&.name %></td>
+          <td><%= span_status admin.active %></td>
+          <td class="text-center table-action">
+            <%= link_to_show admin %>
+            <%= link_to_edit admin %>
+            <%= link_to_delete admin %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="row align-items-center justify-content-between">
+  <div class="col-sm-12 col-md-5">
+    <div class="dataTables_info" id="datatables-column-search-text-inputs_info" role="status" aria-live="polite">
+      <%= page_entries_info @admins %>
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-7">
+    <div class="dataTables_paginate paging_simple_numbers" id="datatables-reponsive_paginate">
+      <%= paginate @admins, window: 3 %>
+    </div>
+  </div>
+</div>

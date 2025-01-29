@@ -1,0 +1,15 @@
+//
+// Badge
+//
+
+@each $name, $value in $theme-colors {
+  .badge-#{$name} {
+    color: theme-inverse-color($name);
+    background-color: $value;
+  }
+
+  .badge-#{$name}-light {
+    color: $value;
+    background-color: theme-light-color($name);
+  }
+}

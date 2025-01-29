@@ -1,0 +1,12 @@
+<% @return_url = permissions_path %>
+
+<% content_for :title do %>
+  <strong>Editar permiso</strong>
+<% end %>
+<% content_for :subtitle do %>
+  Última modificación: <%= @permission.updated_at.strftime("%d/%m/%Y %H:%M:%S") %>
+<% end %>
+<% content_for :content_body do %>
+  <%= render 'form', permission: @permission %>
+<% end %>
+<%= render partial: "shared/admin_edit" %>

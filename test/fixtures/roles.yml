@@ -1,0 +1,48 @@
+# == Schema Information
+#
+# Table name: roles
+#
+#  id         :bigint           not null, primary key
+#  active     :boolean          default(TRUE)
+#  name       :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
+one:
+  name: MyString
+  product_create: false
+  product_read: false
+  product_update: false
+  product_delete: false
+  banner_create: false
+  banner_read: false
+  banner_update: false
+  banner_delete: false
+  admin_create: false
+  admin_read: false
+  admin_update: false
+  admin_delete: false
+  role_create: false
+  role_read: false
+  role_update: false
+  role_delete: false
+
+two:
+  name: MyString
+  product_create: false
+  product_read: false
+  product_update: false
+  product_delete: false
+  banner_create: false
+  banner_read: false
+  banner_update: false
+  banner_delete: false
+  admin_create: false
+  admin_read: false
+  admin_update: false
+  admin_delete: false
+  role_create: false
+  role_read: false
+  role_update: false
+  role_delete: false

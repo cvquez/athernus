@@ -1,0 +1,25 @@
+<div class="nested-fields">
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title mb-0">
+        <span class="badge bg-primary">
+                <%= t('activerecord.models.question.one', default: 'Question') %> #<%= f.object&.id %>
+            </span>
+        </h5>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+            <%= f.input :name %>
+            <%= f.input :content, input_html: { rows: 3 } %>
+        </div>
+        <div class="col-md-6">
+          <%= f.input :category_id, collection: Category.all, value_method: :id, include_blank: false %>
+          <%= f.input :focus_area_id, collection: FocusArea.all, value_method: :id, include_blank: false %>
+          <%= f.input :business_dimension_id, collection: BusinessDimension.all, value_method: :id, include_blank: false %>
+        </div>
+      </div>
+      <%= link_to_remove_association t('permissions.actions.delete'), f, class: 'btn btn-outline-danger', data: { confirm: t('permissions.actions.confirm') } %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand navbar-light navbar-bg">
+  <a class="sidebar-toggle js-sidebar-toggle">
+    <i class="hamburger align-self-center"></i>
+  </a>
+  <ul class="navbar-nav d-none d-lg-block">
+    <li class="nav-item px-2 dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+         aria-expanded="false">
+        Menú general
+      </a>
+
+      <div class="dropdown-menu dropdown-menu-start dropdown-mega" aria-labelledby="servicesDropdown">
+        <div class="d-md-flex align-items-start justify-content-start">
+          <div class="dropdown-mega-list">
+            <div class="dropdown-header">Paneles de control</div>
+            <!--            <a class="dropdown-item" href="<%#= dashboards_analytics_path %>">Analíticas</a>-->
+          </div>
+          <div class="dropdown-mega-list">
+            <div class="dropdown-header">Base de datos</div>
+<!--            <a class="dropdown-item" href="<%#= admin_index_path %>">Admin</a>-->
+          </div>
+          <div class="dropdown-mega-list">
+            <div class="dropdown-header">Otros</div>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+
+  <div class="navbar-collapse collapse">
+    <ul class="navbar-nav navbar-align">
+      <li class="nav-item dropdown"></li>
+      <li class="nav-item dropdown">
+        <a class="nav-icon pe-md-0 dropdown-toggle" href="#" data-bs-toggle="dropdown">
+          <img src="<%= avatar_for current_admin %>" class="avatar img-fluid rounded" alt="<%= current_admin.name %>"/>
+        </a>
+        <%= render 'shared/admin/user-dropdown', dropdown_class: 'dropdown-menu-end' %>
+      </li>
+    </ul>
+  </div>
+
+</nav>

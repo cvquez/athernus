@@ -1,0 +1,17 @@
+<% if content_for?(:page_title) || content_for?(:page_actions) %>
+  <div class="row mb-2 mb-xl-3">
+    <div class="col-auto d-none d-sm-block">
+      <% if content_for?(:page_title) %>
+        <h3><%= yield :page_title %></h3>
+        <% if content_for?(:page_title_small) %>
+          <small><%= yield :page_title_small %></small>
+        <% end %>
+      <% end %>
+    </div>
+    <% if content_for?(:page_actions) %>
+      <div class="col-auto ms-auto text-end mt-n1">
+        <%= yield :page_actions %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

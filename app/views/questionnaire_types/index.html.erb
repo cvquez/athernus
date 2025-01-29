@@ -1,0 +1,70 @@
+<% model_name = t('activerecord.models.questionnaire_type.other', default: 'Questionnaire types') %>
+<% title = "#{model_name}" %>
+<% content_for :title, title %>
+<% content_for :page_title, title %>
+<% content_for :page_actions do %>
+  <% if authorized('questionnaire_types', 'read') %>
+    <a href="<%= new_questionnaire_type_url %>" class="btn btn-primary"><%= feather :plus %> Nuevo</a>
+    <a href="<%= questionnaire_types_path(format: :csv) %>" class="btn btn-secondary"><%= fa 'file-csv' %> CSV</a>
+  <% end %>
+<% end %>
+<% content_for :table_filter do %>
+<%= render "shared/index_search_form" %>
+<% end %>
+
+<div class="row">
+  <div class="col-12">
+    <div class="table-responsive">
+      <table class="table table-hover table-striped" style="width:100%">
+        <thead>
+        <tr>
+          <th><%= sort_link @search, 'id', 'ID' %></th>
+          
+          <th><%= sort_link @search, 'name', t('activerecord.attributes.questionnaire_type.name') %></th>
+
+          <th class="text-center">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% if @questionnaire_types.length > 0 %>
+          <% @questionnaire_types.each do |questionnaire_type| %>
+          <tr>
+            <td><%= questionnaire_type.id %></td>
+
+            <td><%=  questionnaire_type.name %></td>
+            <td class="text-center table-action">
+              <%= link_to_show questionnaire_type %>
+              <%= link_to_edit questionnaire_type %>
+              <%= link_to_delete questionnaire_type %>
+            </td>
+          </tr>
+          <% end %>
+        <% else %>
+          <tr>
+            <td colspan="4">
+              <div class="text-center fs-5 text-muted">
+                <div class="mb-2"><%= page_entries_info @questionnaire_types %></div>
+                <% unless @search.conditions.present? %>
+                  <a href="<%= new_questionnaire_type_url %>" class="btn btn-primary"><%= feather :plus %> Agregar</a>
+                <% end %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="row align-items-center justify-content-between">
+  <div class="col-sm-12 col-md-5">
+    <div class="dataTables_info" id="datatables-column-search-text-inputs_info" role="status" aria-live="polite">
+      <%= page_entries_info @questionnaire_types %>
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-7">
+    <div class="dataTables_paginate paging_simple_numbers" id="datatables-reponsive_paginate">
+      <%= paginate @questionnaire_types, window: 3 %>
+    </div>
+  </div>
+</div>

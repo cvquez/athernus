@@ -1,0 +1,47 @@
+<main class="d-flex w-100 h-100">
+  <div class="container d-flex flex-column">
+    <div class="row vh-100">
+      <div class="col-12 col-md-8 col-lg-6 mx-auto d-flex align-items-center">
+        <div class="card w-100" style="box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);">
+          <div class="card-body">
+            <div class="m-4">
+              <div class="text-center mb-4">
+                <img src="<%= asset_path('logo.png') %>" class="img-fluid" width="180" alt="logo"/>
+              </div>
+              <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+                <% flash.each do |type, message| %>
+                  <% next unless message.is_a?(String) %>
+                  <div class="alert alert-<%= alert_type(type)%> alert-dismissible fade show" role="alert">
+                    <%= message %>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                <% end %>
+                <div class=" mb-2 me-sm-2">
+<!--                  <div class="input-group-text" style='background-color: #28a745;color:#fff;border-top-left-radius: 10px; border-bottom-left-radius: 10px;'>-->
+                    <%#= inline_svg 'svg/user' %>
+<!--                  </div>-->
+                  <%= f.text_field :username, autofocus: true, autocomplete: "username",
+                                   class: "form-control", placeholder: 'Nombre de usuario'%>
+                </div>
+                <div class=" mb-3 me-sm-2" >
+<!--                  <div class="input-group-text" style='background-color: #28a745;color:#fff; border-top-left-radius: 10px; border-bottom-left-radius: 10px;'>-->
+                    <%#= inline_svg 'svg/key' %>
+<!--                  </div>-->
+                  <%= f.password_field :password, autofocus: true, autocomplete: "password", class: "form-control",
+                                       placeholder: 'Contraseña'%>
+                </div>
+                <div class="d-grid">
+                  <%= f.submit "Ingresar", class: 'btn btn-primary' %>
+                </div>
+<!--                <div class="text-center mt-3">-->
+
+<!--                  <span>Desarrollado por <a class="text-black fw-bold" href=""></a></span>-->
+<!--                </div>-->
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

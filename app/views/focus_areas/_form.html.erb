@@ -1,0 +1,26 @@
+
+<% model_name = t('activerecord.models.focus_area.one', default: 'Focus area') %>
+<% title = @focus_area.persisted? ? "Editar #{model_name}" : "Nuevo #{model_name}" %>
+<% title_sm = @focus_area.persisted? ? "Última modificación: #{strftime @focus_area.updated_at}" : '' %>
+<% content_for :title, title %>
+<% content_for :page_title, title %>
+<% content_for :page_title_small, title_sm %>
+<% content_for :page_actions do %>
+  <%= link_to focus_areas_path, class: 'btn btn-white' do %>
+    <%= feather 'arrow-left' %> Volver a la lista
+  <% end  %>
+  <a href="#submit" class="btn btn-primary"><%= feather :plus %> Guardar</a>
+<% end %>
+
+<%= simple_form_for(@focus_area) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <%= f.input :name %>
+
+  <div class="form-actions">
+    <%= f.button :submit, class: 'btn btn-primary' %>
+    <%= link_to 'Ver registro', @focus_area, class: 'btn btn-secondary' if @focus_area.id %>
+    <%= link_to 'Volver', focus_areas_path, class: 'btn btn-secondary' %>
+  </div>
+<% end %>

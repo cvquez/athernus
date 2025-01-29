@@ -1,0 +1,156 @@
+<% model_name = t('activerecord.models.questionnaire.one', default: 'Questionnaire') %>
+<% title = "#{model_name}" %>
+<% title_sm = "Última modificación: #{strftime @questionnaire.updated_at}" %>
+<% content_for :title, title %>
+<% content_for :page_title do %>
+  <%= title %>
+<% end %>
+<% content_for :page_title_small, title_sm %>
+<% content_for :page_actions do %>
+  <a href="<%= questionnaires_path %>" class="btn btn-white"><%= feather 'arrow-left' %> Volver a la lista</a>
+  <a href="<%= edit_questionnaire_url(@questionnaire) %>" class="btn btn-primary"><%= feather 'edit-2' %> Editar</a>
+<% end %>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <tbody>
+    <tr>
+      <th><%= t('activerecord.attributes.questionnaire.questionnaire_type_id') %></th>
+      <td>
+        <%= link_to @questionnaire.questionnaire_type.name, @questionnaire.questionnaire_type %>
+      </td>
+    </tr>
+    <tr>
+      <th><%= t('activerecord.attributes.questionnaire.name') %></th>
+      <td>
+        <%= @questionnaire.name %>
+      </td>
+    </tr>
+    <tr>
+      <th><%= t('activerecord.attributes.questionnaire.slug') %></th>
+      <td>
+        <%= @questionnaire.slug %>
+      </td>
+    </tr>
+    <tr>
+      <th><%= t('activerecord.attributes.questionnaire.status') %></th>
+      <td>
+        <%= span_status @questionnaire.status %>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<hr>
+<!-- ... -->
+<h3>Estadísticas</h3>
+
+<ul class="nav nav-tabs mb-3" id="statsTab" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="tables-tab" data-bs-toggle="tab" href="#tables" role="tab" aria-controls="tables" aria-selected="true"><i class="fas fa-table"></i>
+      Tablas</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="charts-tab" data-bs-toggle="tab" href="#charts" role="tab" aria-controls="charts" aria-selected="false"><i class="fas fa-chart-bar"></i>
+      Gráficos</a>
+  </li>
+</ul>
+
+<div class="tab-content" id="statsTabContent">
+  <div class="tab-pane fade show active" id="tables" role="tabpanel" aria-labelledby="tables-tab">
+    <div class="row row-cols-md-2">
+      <div class="col">
+        <h5>Promedio de las respuestas</h5>
+        <% @category_data.each do |category, data| %>
+          <div class="card mb-3" style="background-color: <%= data[:color] %>;">
+            <div class="card-body">
+              <h4><%= category %></h4>
+              <p><strong>Promedio:</strong> <%= data[:average].round(2) %></p>
+              <p><strong>Respuestas:</strong> <%= data[:answers] %></p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="col">
+        <h5>Niveles de Madurez</h5>
+        <% @category_data.each do |category, data| %>
+          <div class="card mb-3" style="background-color: <%= data[:maturity_level][:color] %>;">
+            <div class="card-body">
+              <h4><%= category %></h4>
+              <p><strong>Nivel:</strong> <%= data[:maturity_level][:name] %></p>
+              <p><strong>Rango:</strong> <%= data[:maturity_level][:min] %> - <%= data[:maturity_level][:max] %></p>
+              <p><strong>Descripción:</strong> <%= data[:maturity_level][:description] %></p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="col-12 col-md-12">
+        <div class="card mb-3">
+          <div class="card-body table-responsive">
+            <table class="table table-striped-columns">
+              <thead>
+              <tr>
+                <th>Foco</th>
+                <th>Cant. de preguntas (CT)</th>
+                <th>Suma máx. de respuestas (SMR=CT*5)</th>
+                <th>Suma prom. de respuestas (SPR)</th>
+                <th>Porcentaje (P=SPR*100/SMR)</th>
+              </tr>
+              </thead>
+              <tbody>
+              <% @focus_data.each do |focus, data| %>
+                <tr>
+                  <td><%= focus %></td>
+                  <td><%= data[:count] %></td>
+                  <td><%= data[:total] %></td>
+                  <td><%= data[:sum] %></td>
+                  <td><%= data[:percentage] %> %</td>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="charts" role="tabpanel" aria-labelledby="charts-tab">
+    <div class="row row-cols-md-2">
+      <div class="col">
+        <h4>Promedio de respuestas</h4>
+        <%= pie_chart @category_data.keys.map { |category| [category, @category_data[category][:average].round(2)] }, colors: @category_data.values.map { |data| data[:color] } %>
+      </div>
+      <div class="col">
+        <h5>Niveles de madurez</h5>
+        <%= bar_chart @chart_data, colors: @category_data.values.map { |data| data[:maturity_level][:color] }, max: 75, library: { scales: { yAxes: [{ ticks: { callback: ->(_value, index, _values) { index % 5 == 0 ? (index * 3 + 15).to_s : '' } } }] } } %>
+      </div>
+      <div class="col">
+        <%= bar_chart [
+                        {
+                          name: "Promedio de respuestas",
+                          data: @focus_data.map { |focus, data| [focus, data[:sum]] },
+                          color: "#007bff",
+                          total: 100
+                        },
+                        {
+                          name: "Máximo",
+                          data: @focus_data.map { |focus, data| [focus, data[:total]] },
+                          color: "#ccc",
+                          total: 100
+                        }
+                      ], library: {
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  callback: ->(_value, _index, _values) { '%' }
+                }
+              }
+            ]
+          },
+          horizontal: false
+        } %>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ... -->

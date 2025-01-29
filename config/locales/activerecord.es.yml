@@ -1,0 +1,89 @@
+#file: noinspection YAMLSchemaValidation
+es:
+  activerecord:
+    attributes:
+      admin:
+        email: Email
+        name: Nombre
+        password: Contraseña
+        password_confirmation: Confirmación de contraseña
+        role: Rol
+        role_id: Rol
+      business_dimension:
+        name: 'Nombre'
+      category:
+        color: 'Color'
+        name: 'Nombre'
+      focus_area:
+        name: 'Nombre'
+      maturity_level:
+        name: 'Nombre'
+        description: 'Descripción'
+        color: 'Color'
+        min: 'Mínimo'
+        max: 'Máximo'
+      question:
+        name: 'Nombre'
+        content: 'Contenido'
+        questionnaire_type_id: 'Tipo de cuestionario'
+        category_id: 'Categoría'
+        focus_area_id: 'Foco'
+        business_dimension_id: 'Dimensión del negocio'
+      questionnaire:
+        name: Nombre
+        questionnaire_type: Tipo de cuestionario
+        slug: Código
+        status: Estado
+      questionnaire_type:
+        name: 'Nombre'
+      request_log:
+        content_length: "Tamaño"
+        content_type: "Tipo"
+        ended_at: "Fin"
+        initiator: "Origen"
+        method: "Método"
+        response_code: "Código de respuesta"
+        response_headers: "Cabeceras http"
+        started_at: "Inicio"
+        url: "URL"
+      role:
+        name: Nombre
+      user:
+        document: 'Documento'
+        password: 'Contraseña'
+        password_confirmation: 'Confirmación de Contraseña'
+        reset_password_token: 'Token'
+    models:
+      business_dimension:
+        one: 'Dimensión del negocio'
+        other: 'Dimensiones del negocio'
+      category:
+        one: 'Categoría'
+        other: 'Categorías'
+      contact:
+        one: 'Mensaje de contacto'
+        other: 'Mensajes de contacto'
+      focus_area:
+        one: 'Foco'
+        other: 'Focos'
+      maturity_level:
+        one: 'Nivel de madurez'
+        other: 'Niveles de madurez'
+      product:
+        one: 'Producto'
+        other: 'Productos'
+      question:
+        one: 'Pregunta'
+        other: 'Preguntas'
+      questionnaire:
+        one: 'Cuestionario'
+        other: 'Cuestionarios'
+      questionnaire_type:
+        one: 'Tipo de Cuestionario'
+        other: 'Tipos de Cuestionario'
+      request_log:
+        one: 'Llamada de API'
+        other: 'Llamadas de API'
+      role:
+        one: 'Rol'
+        other: 'Roles'

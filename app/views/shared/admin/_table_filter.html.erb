@@ -1,0 +1,9 @@
+<% if content_for?(:page_tabs) %>
+  <div>
+    <%= yield :page_tabs %>
+    <hr>
+  </div>
+<% end %>
+<% if content_for?(:table_filter) %>
+  <%= yield :table_filter %>
+<% end %>

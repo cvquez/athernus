@@ -1,0 +1,80 @@
+<% model_name = t('activerecord.models.question.other', default: 'Questions') %>
+<% title = "#{model_name}" %>
+<% content_for :title, title %>
+<% content_for :page_title, title %>
+<% content_for :page_actions do %>
+  <% if authorized('questions', 'read') %>
+    <a href="<%= new_question_url %>" class="btn btn-primary"><%= feather :plus %> Nuevo</a>
+    <a href="<%= questions_path(format: :csv) %>" class="btn btn-secondary"><%= fa 'file-csv' %> CSV</a>
+  <% end %>
+<% end %>
+<% content_for :table_filter do %>
+  <%= render "shared/index_search_form" %>
+<% end %>
+
+<div class="row">
+  <div class="col-12">
+    <div class="table-responsive">
+      <table class="table table-hover table-striped" style="width:100%">
+        <thead>
+        <tr>
+          <th><%= sort_link @search, 'id', 'ID' %></th>
+
+          <th><%= sort_link @search, 'name', t('activerecord.attributes.question.name') %></th>
+          <th><%= sort_link @search, 'content', t('activerecord.attributes.question.content') %></th>
+          <th><%= sort_link @search, 'questionnaire_type_id', t('activerecord.attributes.question.questionnaire_type_id') %></th>
+          <th><%= sort_link @search, 'category_id', t('activerecord.attributes.question.category_id') %></th>
+          <th><%= sort_link @search, 'focus_area_id', t('activerecord.attributes.question.focus_area_id') %></th>
+          <th><%= sort_link @search, 'business_dimension_id', t('activerecord.attributes.question.business_dimension_id') %></th>
+
+          <th class="text-center">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% if @questions.length > 0 %>
+          <% @questions.each do |question| %>
+            <tr>
+              <td><%= question.id %></td>
+
+              <td><%= question.name %></td>
+              <td><%= question.content %></td>
+              <td><%= link_to question.questionnaire_type.name, question.questionnaire_type if question.questionnaire_type %></td>
+              <td><%= link_to question.category.name, question.category if question.category %></td>
+              <td><%= link_to question.focus_area&.name, question.focus_area if question.focus_area %></td>
+              <td><%= link_to question.business_dimension&.name, question.business_dimension if question.business_dimension %></td>
+              <td class="text-center table-action">
+                <%= link_to_show question %>
+                <%= link_to_edit question %>
+                <%= link_to_delete question %>
+              </td>
+            </tr>
+          <% end %>
+        <% else %>
+          <tr>
+            <td colspan="9">
+              <div class="text-center fs-5 text-muted">
+                <div class="mb-2"><%= page_entries_info @questions %></div>
+                <% unless @search.conditions.present? %>
+                  <a href="<%= new_question_url %>" class="btn btn-primary"><%= feather :plus %> Agregar</a>
+                <% end %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="row align-items-center justify-content-between">
+  <div class="col-sm-12 col-md-5">
+    <div class="dataTables_info" id="datatables-column-search-text-inputs_info" role="status" aria-live="polite">
+      <%= page_entries_info @questions %>
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-7">
+    <div class="dataTables_paginate paging_simple_numbers" id="datatables-reponsive_paginate">
+      <%= paginate @questions, window: 3 %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+    <meta name="author" content="AdminKit">
+    <meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%# <link rel="preconnect" href="https://fonts.gstatic.com"> %>
+    <link rel="shortcut icon" href="/img/icons/icon-48x48.png" />
+    <%# <link rel="canonical" href="https://demo.adminkit.io/" /> %>
+    <title>Shpping China Backend</title>
+    <%# <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet"> %>
+    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/gd-custom-admin.css">
+    <link rel="stylesheet" href="/css/trix.css">
+    <link rel="stylesheet" href="/css/active_storage_drag_and_drop.css">
+    <link class="js-stylesheet" href="/css/light.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/custom-fonts/bootstrap-icons.css">
+    <link red='stylesheet' href='/css/animate.min.css'>
+    <%= stylesheet_link_tag '//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/le-frog/jquery-ui.min.css' %>
+    <%= javascript_include_tag 'application' %>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <style>
+      .help-block, .has-error { width: 100% !important }
+    </style>
+    <body data-theme="default" data-layout="fluid" data-sidebar-position="left" data-sidebar-layout="default" style='background-color: #BCD9DF !important'>
+      <main class="d-flex w-100 h-100">
+        <div class="container d-flex flex-column">
+          <div class="row vh-100">
+            <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
+              <div class="d-table-cell align-middle">
+                <div class="card" style='border: 3px solid #A4ABA9; border-radius: 20px'>
+                  <div class="card-body">
+                    <div class="m-sm-4">
+                      <div class="text-center">
+                      </div>
+                      <br>
+                      <br>
+                      <p>Ingresá tu nueva contraseña.</p>
+                      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+                        <%= render "devise/shared/error_messages", resource: resource %>
+                        <%= f.hidden_field :reset_password_token %>
+                        <div class="input-group mb-2 me-sm-2" style='min-height: 50px;'>
+                          <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class: "form-control", placeholder: 'Contraseña', style: 'border-top-left-radius: 10px; border-bottom-left-radius: 10px;; background-color: #001F55;  border-top-right-radius: 10px; border-bottom-right-radius: 10px; padding: 20px; color: white !important;' %>
+                        </div>
+                        <div class="input-group mb-2 me-sm-2" style='min-height: 50px;'>
+                          <%= f.password_field :password_confirmation, autofocus: true, autocomplete: "new-password", class: "form-control", placeholder: 'Confirmar contraseña', style: 'border-top-left-radius: 10px; border-bottom-left-radius: 10px;; background-color: #001F55;  border-top-right-radius: 10px; border-bottom-right-radius: 10px; padding: 20px; color: white !important;' %>
+                        </div>
+                        <%= render "devise/shared/links" %>
+                        <div class="d-grid gap-2">
+                          <%= f.submit "Cambiar", class: 'btn btn-lg btn-primary  gd-custom-login-button' %>
+                        </div>
+                        <br>
+                        <div class="text-center mt-3">
+                          <%= image_tag '/img/avatars/g-digital-isotipo.png', width: '80px', style: 'margin-top: 20px' %>
+                        </div>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <script src="/js/app.js"></script>
+      <script>
+        <% message = ((flash.notice || flash.alert) && flash.notice) ? flash.notice : flash.alert %>
+        <% if flash.notice || flash.alert %>
+                toastr.<%= flash.notice ? 'success' : 'error' %>('<%= message %>', '', {
+                    "closeButton": true,
+                    "positionClass": "toast-top-right",
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "5000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "2500",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "progressBar": true,
+                    "hideMethod": "fadeOut"
+                })
+              <% end %>
+      </script>
+    </body>
+  </html>

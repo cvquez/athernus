@@ -1,0 +1,42 @@
+<% content_for :title, "Permisos [OCULTO]" %>
+<% content_for :subtitle, "Lista de Permisos" %>
+<% @create_path = new_permission_path %>
+<% @resource_list = @permissions %>
+<% content_for :menu_items do %>
+  <%= link_to "Nuevo", new_permission_path, class: 'dropdown-item' %>
+  <%= link_to "Descargar CSV", permissions_path(format: :csv), class: 'dropdown-item' %>
+  <%= link_to "Buscar", nil, class: 'dropdown-item', id: 'gd-do-search' %>
+<% end %>
+<% content_for :table_head do %>
+  <th><%= fa('key') %><%= sort_link @search, 'id', 'Id' %></i></th>
+  <th><%= fa(:text) %><%= sort_link @search, 'controller', 'Tipo de Recurso' %></th>
+  <th><%= fa(:text) %><%= sort_link @search, 'action', 'Acción' %></th>
+  <th class='gd-vertical-middle'>Acciones</th>
+<% end %>
+<% content_for :table_body do %>
+  <% @permissions.each do |permission| %>
+    <tr>
+      <td><%= permission.id %></td>
+      <td><%= t("permissions.controllers.#{permission.controller}") %></td>
+      <td><%= t("permissions.actions.#{permission.action}") %></td>
+
+      <td class="table-action">
+        <%= link_to permission do %>
+          <i class="align-middle" data-feather="eye"></i>
+        <% end %>
+
+        <%= link_to edit_permission_path(permission) do %>
+          <i class="align-middle" data-feather="edit-2"></i>
+        <% end %>
+
+        <%= link_to permission, method: :delete, data: { confirm: 'Conrimar que deseas eliminar' } do %>
+          <i class="align-middle" data-feather="trash"></i>
+        <% end %>
+
+
+      </td>
+    </tr>
+  <% end %>
+<% end %>
+
+<%= render partial: "shared/admin_index" %>

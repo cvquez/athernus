@@ -1,0 +1,53 @@
+@import "admin/1-variables/app";
+
+// Bootstrap
+@import "bootstrap/configuration";
+
+@import "admin/6-custom/utilities";
+
+@import "bootstrap/components";
+@import "bootstrap/helpers";
+
+// Theme mixins
+@import "admin/2-mixins/button";
+@import "admin/2-mixins/theme";
+
+// Theme components
+@import "admin/3-components/avatar";
+@import "admin/3-components/buttons";
+@import "admin/3-components/card";
+@import "admin/3-components/chart";
+@import "admin/3-components/content";
+@import "admin/3-components/dropdown";
+@import "admin/3-components/feather";
+@import "admin/3-components/footer";
+@import "admin/3-components/hamburger";
+@import "admin/3-components/list-group";
+@import "admin/3-components/main";
+@import "admin/3-components/navbar";
+@import "admin/3-components/badge";
+@import "admin/3-components/reboot";
+@import "admin/3-components/sidebar";
+@import "admin/3-components/sizing";
+@import "admin/3-components/stat";
+@import "admin/3-components/tables";
+@import "admin/3-components/type";
+@import "admin/3-components/wrapper";
+@import "admin/3-components/pagination";
+
+// Theme utilities
+@import "admin/4-utilities/cursors";
+
+// 3rd party plugins
+@import "simplebar/dist/simplebar.min";
+
+// 3rd party plugin styles
+@import "admin/5-vendor/simplebar";
+
+@import "admin/6-custom/admin";
+
+@import "trix/dist/trix";
+@import "admin/6-custom/active_storage_drag_and_drop";
+@import "admin/6-custom/sweet-alert";
+@import "@selectize/selectize/dist/css/selectize";
+@import 'highlight.js/styles/atom-one-dark-reasonable';

@@ -1,0 +1,57 @@
+<div id="<%= dom_id request_log %>">
+  <p>
+    <strong>Url:</strong>
+    <%= request_log.url %>
+  </p>
+
+  <p>
+    <strong>Method:</strong>
+    <%= request_log.method %>
+  </p>
+
+  <p>
+    <strong>Request body:</strong>
+    <%= request_log.request_body %>
+  </p>
+
+  <p>
+    <strong>Response body:</strong>
+    <%= request_log.response_body %>
+  </p>
+
+  <p>
+    <strong>Response code:</strong>
+    <%= request_log.response_code %>
+  </p>
+
+  <p>
+    <strong>Content type:</strong>
+    <%= request_log.content_type %>
+  </p>
+
+  <p>
+    <strong>Content length:</strong>
+    <%= request_log.content_length %>
+  </p>
+
+  <p>
+    <strong>Started at:</strong>
+    <%= request_log.started_at %>
+  </p>
+
+  <p>
+    <strong>Ended at:</strong>
+    <%= request_log.ended_at %>
+  </p>
+
+  <p>
+    <strong>Initiator:</strong>
+    <%= request_log.initiator %>
+  </p>
+
+  <p>
+    <strong>Response headers:</strong>
+    <%= request_log.response_headers %>
+  </p>
+
+</div>

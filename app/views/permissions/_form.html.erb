@@ -1,0 +1,21 @@
+<%= form_with(model: permission) do |form| %>
+
+  <div class="mb-3">
+    <%= form.label :controller, "Tipo de recurso", class: 'form-label' %>  <span class="text-danger">*</span>
+    <%= form.select :controller, @all_resources.keys.collect { |k| [t("permissions.controllers.#{k}"), k] },
+                    { include_blank: true }, class: 'form-select' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :action, "Acción", class: 'form-label' %>  <span class="text-danger">*</span>
+    <%= form.select :action, @all_resources.collect { |v| [v.first, v.last] },
+                    { include_blank: true }, class: 'form-select' %>
+  </div>
+
+
+  <div class="actions">
+    <%= button_tag(:class => "btn btn-primary mt-2") do %>
+      <i class="fas fa-fw fa-save"></i> Guardar
+    <% end %>
+  </div>
+<% end %>

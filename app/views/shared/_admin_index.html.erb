@@ -1,0 +1,68 @@
+<div class="row mb-2 mb-xl-3">
+  <div class="col-auto d-none d-sm-block">
+    <h3><%= content_for :title %></h3>
+  </div>
+  <div class="col-auto ms-auto text-end mt-n1">
+    <%= link_to(@create_path, class: 'btn btn-primary', remote: false, method: :get) do %>
+      <i class="fas fa-fw fa-plus"></i> Nuevo
+    <% end %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header pb-0">
+        <div class="card-actions float-end">
+          <div class="dropdown show">
+            <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
+              <i class="align-middle" data-feather="more-horizontal"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end">
+              <%= content_for :menu_items %>
+            </div>
+          </div>
+        </div>
+        <h5 class="text-muted mb-0"><%= content_for :subtitle %></h5>
+      </div>
+
+      <div class="card-body">
+        <%= render "shared/index_search_form" %>
+
+        <div class="row">
+          <div class="col-12">
+            <table class="table table-hover table-striped" style="width:100%">
+              <thead>
+              <tr>
+                <%= content_for :table_head %>
+              </tr>
+              </thead>
+              <tbody>
+              <%= content_for :table_body %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row align-items-center">
+          <div class="col-sm-12 col-md-5">
+            <div class="dataTables_info" id="datatables-column-search-text-inputs_info" role="status" aria-live="polite">
+              <%= page_entries_info @resource_list %>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-7">
+            <%= paginate @resource_list, window: 3 %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<%= button_to(@create_path, class: 'btn btn-primary btn-lg', remote: false, method: :get) do %>
+  <i class="fas fa-fw fa-plus"></i> Nuevo
+<% end %>
+
+<script>
+    <% if params[:q] && params[:q][:searchable_content_cont] %>
+    $('#q_searchable_content_cont').val('<%= params[:q][:searchable_content_cont] %>');
+    <% end %>
+</script>

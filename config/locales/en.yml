@@ -1,0 +1,236 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# The following keys must be escaped otherwise they will not be retrieved by
+# the default I18n backend:
+#
+# true, false, on, off, yes, no
+#
+# Instead, surround them with single quotes.
+#
+# en:
+#   'true': 'foo'
+#
+# To learn more, please read the Rails Internationalization guide
+# available at https://guides.rubyonrails.org/i18n.html.
+
+en:
+  hello: "Hello world"
+  simple: Simple
+  variable: Variable
+  published: Publicado
+  draft: Borrador
+  trash: Papelera
+  fst: Primero
+  snd: Segundo
+  trd: Tercero
+  middle: Medio
+  footer: Pie de página
+  activerecord:
+    models:
+      institutional_release:
+        one: Comunicado Institucional
+        other: Comunicados Institucionales
+      resolution_release:
+        one: Comunicado Resoluciones
+        other: Comunicados Resoluciones
+      footer_detail:
+        one: Footer detalle
+        other: Footer detalle
+      branch_office:
+        one: Sucursales
+        other: Sucursales
+      branch_detail:
+        one: Detalle Sucursal
+        other: Detalle Sucursal
+      estate_type:
+        one: Detalle Bienes Adjudicados
+        other: Detalle Bienes Adjudicados
+      estate:
+        one: Bienes Adjudicados
+        other:  Bienes Adjudicados
+      variab_two:
+        one: Variable
+        other:  Variable
+      variable:
+        one: Redes social
+        other:  Redes social
+      product: 
+        one: Producto
+        other:  Producto
+      sub_product: 
+        one: Subproducto
+        other:  Subproducto
+      product_detail:
+        one: Producto detalle
+        other: Producto detalles
+      sub_product_detail:
+       one: Subproducto detalle
+       other: Subproducto detalle
+      type_term:
+       one: Tipo de plazo
+       other: ipo de plazo
+      type_living_place:
+       one: Tipo de vivienda
+       other: Tipo de vivienda
+      attractive:
+       one: Atractivos
+       other: Atractivos
+      zone_living_place:
+       one: zona viviendas
+       other: zona viviendas
+      living_place:
+       one: Viviendas
+       other: Viviendas
+      atm: 
+       one: cajero
+       other: cajero
+      tariff:
+       one: tarifario
+       other: tarifario
+      qualification_risk:
+       one: calificaciones de riesgo
+       other: calificaciones de riesgo
+      timeline:
+       one: Linea de tiempo
+       other: Linea de tiempo
+      government_corporate:
+       one: Gobierno Corporativo
+       other: Gobierno Corporativo
+      private_banking:
+       one: banca privada
+       other: banca privada
+      preferential_attention_detail:
+       one: atención preferencial detalle
+       other: atención preferencial detalle
+      benefit_detail:
+       one: Beneficio detalle
+       other: beneficio detalle
+      annual_report:
+       one: Memorias anuales
+       other: memorias anuales
+      contact:
+       one: contacto
+       other: contacto
+    
+    
+
+
+
+
+
+
+    # attributes:
+    #   institutional_release:
+    #     name: Nombre
+    #     description: Descripcion
+    #     url: Link
+  # MONTHNAMES: 
+  #    Enero
+  #    febrero
+  #    marzo    
+    errors:
+      messages:
+        wrong_length: "es muy corto (mínimo %{count} digitos)"
+        taken: ya ha sido tomado
+        blank: "No puede ser vacío"
+        too_short: "es muy corto (mínimo %{count} caracteres)"
+        too_long: "es muy largo (máximo %{count} caracteres)"
+        confirmation: "y Contraseña deben ser iguales"
+        required: debe existir
+        not_a_number: no es un número
+        greater_than_or_equal_to: tiene que ser mayor o igual que %{count}
+        greater_than: tiene que ser mayor a %{count}
+        invalid: no es válido
+        spoofed_media_type: tiene contenido que no es el declarado
+        in_between: tiene que ser entre %{min} y %{max}
+        restrict_dependent_destroy:
+          has_many: "No se puede borrar el registro porque existe una relación dependiente: %{record}"
+        already_confirmed: ya ha sido confirmado, por favor intenta iniciar sesión
+        confirmation_period_expired: necesita confirmarse dentro de %{period}, por favor solicita una nueva
+        expired: ha expirado, por favor solicita una nueva
+        not_found: no se ha encontrado
+        not_locked: no estaba bloqueada
+        not_saved:
+          one: "Ocurrió un error al tratar de guardar %{resource}:"
+          other: "Ocurrieron %{count} errores al tratar de guardar %{resource}:"
+  errors:
+    messages:
+      content_type_invalid: "tiene un tipo de archivo inválido."
+      file_size_out_of_range: "el tamaño de archivo %{file_size} es superior. Se permite hasta 1 MB"
+      limit_out_of_range: "total number is out of range"
+      image_metadata_missing: "is not a valid image"
+      dimension_min_inclusion: "must be greater than or equal to %{width} x %{height} pixel."
+      dimension_max_inclusion: "must be less than or equal to %{width} x %{height} pixel."
+      dimension_width_inclusion: "width is not included between %{min} and %{max} pixel."
+      dimension_height_inclusion: "height is not included between %{min} and %{max} pixel."
+      dimension_width_greater_than_or_equal_to: "width must be greater than or equal to %{length} pixel."
+      dimension_height_greater_than_or_equal_to: "height must be greater than or equal to %{length} pixel."
+      dimension_width_less_than_or_equal_to: "width must be less than or equal to %{length} pixel."
+      dimension_height_less_than_or_equal_to: "height must be less than or equal to %{length} pixel."
+      dimension_width_equal_to: "el ancho tiene que ser igual a %{length} pixel(es)."
+      dimension_height_equal_to: "el alto tiene que ser igual a %{length} pixel(es)."
+      aspect_ratio_not_square: "debe ser una imagen cuadrada"
+      aspect_ratio_not_portrait: "tiene que ser una imagen tipo retrato"
+      aspect_ratio_not_landscape: "tiene que ser una imagen tipo paisaje"
+      aspect_ratio_is_not: "must have an aspect ratio of %{aspect_ratio}"
+      aspect_ratio_unknown: "has an unknown aspect ratio"    
+  views:
+    pagination:
+      first: "&laquo; Primero"
+      last: "Último &raquo;"
+      previous: "&lsaquo;"
+      next: "&rsaquo;"
+      truncate: "&hellip;"  
+  helpers:
+    page_entries_info:
+      one_page:
+        display_entries:
+          zero: "Ningún/Ninguna %{entry_name} encontrados/das"
+          one: "Mostrando <b>1</b> %{entry_name}"
+          other: "Mostrando <b>todos/as los/as %{count}</b> %{entry_name}"
+      more_pages:
+        display_entries: "Mostrando %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b> de <b>%{total}</b> en total"    
+    submit:
+      category:
+        create: "Guardar"
+        update: "Actualizar"
+      brand:
+        create: "Guardar"
+        update: "Actualizar"        
+      product:
+        create: "Guardar"
+        update: "Actualizar"
+      banner:
+        create: "Guardar"
+        update: "Actualizar"
+      main_banner:
+        create: "Guardar"
+        update: "Actualizar"
+      comment:
+        create: "Guardar"
+        update: "Actualizar"      
+    devise:
+      sessions:
+        new:
+        sign_in: Ingresar
+        signed_in: Ingresado correctamente.
+        signed_out: Saliste correctamente.
+  
+   
+

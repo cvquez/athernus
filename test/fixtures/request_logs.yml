@@ -1,0 +1,45 @@
+# == Schema Information
+#
+# Table name: request_logs
+#
+#  id               :bigint           not null, primary key
+#  content_length   :integer          default(0)
+#  content_type     :string
+#  ended_at         :datetime
+#  initiator        :integer          default(0)
+#  method           :string
+#  request_body     :text
+#  response_body    :text
+#  response_code    :integer
+#  response_headers :text
+#  started_at       :datetime
+#  url              :string           not null
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#
+
+one:
+  url: MyString
+  method: MyString
+  request_body: MyText
+  response_body: MyText
+  response_code: 1
+  content_type: MyString
+  content_length: 1
+  started_at: 2023-10-25 18:01:27
+  ended_at: 2023-10-25 18:01:27
+  initiator: 1
+  response_headers: MyText
+
+two:
+  url: MyString
+  method: MyString
+  request_body: MyText
+  response_body: MyText
+  response_code: 1
+  content_type: MyString
+  content_length: 1
+  started_at: 2023-10-25 18:01:27
+  ended_at: 2023-10-25 18:01:27
+  initiator: 1
+  response_headers: MyText

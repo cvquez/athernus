@@ -1,0 +1,72 @@
+@import "bootstrap/scss/utilities";
+
+$utilities: map-merge(
+                $utilities, (
+                "font-size": map-merge(
+                                map-get($utilities, "font-size"),
+                                (responsive: true)
+                ),
+                "color": map-merge(
+                                map-get($utilities, "color"), (
+                                values: map-merge(
+                                                map-get(map-get($utilities, "color"), "values"), ($custom-colors)
+                                ))),
+                "background-color": map-merge(
+                                map-get($utilities, "background-color"), (
+                                values: map-merge(
+                                                map-get(map-get($utilities, "background-color"), "values"), ($custom-colors)
+                                ))),
+                "border-color": map-merge(
+                                map-get($utilities, "border-color"), (
+                                values: map-merge(
+                                                map-get(map-get($utilities, "border-color"), "values"), ($custom-colors)
+                                ))),
+                "mix-blend-mode": (
+                        property: mix-blend-mode,
+                        class: mix,
+                        values: (
+                                normal: normal,
+                                screen: screen,
+                                overlay: overlay,
+                                darken: darken,
+                                lighten: lighten,
+                                color-dodge: color-dodge,
+                                color-burn: color-burn,
+                                hard-light: hard-light,
+                                soft-light: soft-light,
+                                difference: difference,
+                                exclusion: exclusion,
+                                hue: hue,
+                                saturation: saturation,
+                                color: color,
+                                luminosity: luminosity,
+                                multiply: multiply
+                        )
+                ),
+                "aspect-ratio": (
+                        property: aspect-ratio,
+                        class: aspect,
+                        values: (
+                                video: 16/9,
+                                video-portrait: 9/16,
+                                square: 1/1,
+                                standard: 4/3,
+                                standard-portrait: 3/4,
+                                widescreen: 7/3,
+                        )
+                ),
+                "object-fit": (
+                        property: object-fit,
+                        class: object-fit,
+                        values: (
+                                cover: cover, fill: fill, contain: contain, none: none, scale-down: scale-down
+                        )
+                ),
+                "width": (
+                        property: width,
+                        class: w,
+                        responsive: true,
+                        values: $sizing-map
+                ),
+        )
+)

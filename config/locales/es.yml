@@ -1,0 +1,41 @@
+es:
+  app:
+    messages:
+      confirm: "¿Estás seguro/a de que deseas eliminar el registro?"
+      created: 'El registro ha sido creado con éxito.'
+      updated: 'El registro ha sido actualizado con éxito.'
+      destroyed: 'El registro ha sido eliminado.'
+      conflict: 'No se puede eliminar, existen registros asociados a este recurso.'
+    controllers:
+      admins: 'Administradores'
+      products: 'Productos'
+      users: 'Usuarios'
+      roles: 'Roles'
+      permissions: 'Permisos'
+      settings: 'Configuración'
+      request_logs: 'Llamadas de API'
+      contacts: 'Contactos'
+      athernus: 'Cuestionarios'
+    actions:
+      read: 'Leer'
+      create: 'Crear'
+      update: 'Actualizar'
+      delete: 'Eliminar'
+  helpers:
+    page_entries_info:
+      one_page:
+        display_entries:
+          zero: "No se encontraron %{entry_name}"
+          one: "Mostrando <b>1</b> %{entry_name}"
+          other: "Mostrando <b>todos los %{count}</b> %{entry_name}"
+      more_pages:
+        display_entries: "Mostrando %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b> de <b>%{total}</b> en total"
+    submit:
+      create: "Guardar"
+      update: "Actualizar"
+      submit: "Actualizar"
+  recaptcha:
+    errors:
+      verification_failed: 'CAPTCHA incorrecto, intente de nuevo.'
+      recaptcha_unreachable: 'Error de verificación del CAPTCHA, intente de nuevo.'
+

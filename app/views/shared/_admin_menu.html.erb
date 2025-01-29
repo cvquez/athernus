@@ -1,0 +1,30 @@
+<ul class="sidebar-nav">
+  <%= generate_sidebar_item(admin_index_path, nil, text: 'Panel de control', icon: 'sliders-h') %>
+  <%= generate_sidebar_item(questionnaires_path, nil, text: 'Cuestionarios', icon: 'file') %>
+
+  <li class="sidebar-header">Configuraciones</li>
+  <%= generate_sidebar_item(categories_path, 'categories', text: 'Categorias', icon: 'folder') %>
+  <%= generate_sidebar_item(focus_areas_path, 'focus', text: 'Focos', icon: 'lightbulb') %>
+  <%= generate_sidebar_item(business_dimensions_path, 'business_dimensions', text: 'Dimensiones del negocio', icon: 'ruler') %>
+  <%= generate_sidebar_item(questions_path, 'questions', text: 'Preguntas', icon: 'question') %>
+  <%= generate_sidebar_item(questionnaire_types_path, 'questionnaire_types', text: 'Evaluaciones', icon: 'clipboard-list') %>
+
+  <%#= generate_sidebar_item("#", nil, text: 'Planes estratégicos', icon: 'file-alt') do %>
+    <%#= generate_sidebar_item(core_tipoplanes_path, 'core_tipoplanes', text: 'Tipo de Planes') %>
+    <%#= generate_sidebar_item(core_planes_path, 'core_planes', text: 'Planes') %>
+  <%# end %>
+  <% if authorized(%w[roles admins], 'read') %>
+    <li class="sidebar-header">Cuentas</li>
+  <% end %>
+  <%= generate_sidebar_item(roles_path, 'roles', text: 'Roles', icon: 'users') %>
+  <%= generate_sidebar_item(admins_path, 'admins', text: 'Administradores', icon: 'users') %>
+
+  <% if authorized(%w[request_logs], 'read') %>
+    <li class="sidebar-header">Administrar</li>
+  <% end %>
+  <%= generate_sidebar_item(request_logs_path, 'request_logs', text: 'Llamadas de API', icon: 'tower-cell') %>
+  <%= generate_sidebar_item(settings_path, 'settings', text: 'Configuración', icon: 'cog') %>
+
+
+  <div class="gap mb-6"></div>
+</ul>

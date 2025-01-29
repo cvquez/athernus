@@ -1,0 +1,10 @@
+<% if flash.any? %>
+  <script>
+      $(function () {
+          <% flash.each do |type, message| %>
+          <% next unless message.is_a?(String) %>
+          Toast.fire({icon: '<%= message_type type %>', title: '<%= message %>'})
+          <% end %>
+      });
+  </script>
+<% end %>

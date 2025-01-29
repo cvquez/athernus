@@ -1,0 +1,25 @@
+# == Schema Information
+#
+# Table name: permissions
+#
+#  id         :bigint           not null, primary key
+#  action     :string           default("")
+#  controller :string           not null
+#  deleted    :boolean          default(FALSE)
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+# Indexes
+#
+#  index_permissions_on_controller_and_action  (controller,action) UNIQUE
+#
+
+one:
+  controller: MyString
+  action: MyString
+  allowed: false
+
+two:
+  controller: MyString
+  action: MyString
+  allowed: false

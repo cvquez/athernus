@@ -1,0 +1,55 @@
+<% model_name = t('activerecord.models.role.other', default: 'Roles') %>
+<% title = "#{model_name}" %>
+<% content_for :title, title %>
+<% content_for :page_title, title %>
+<% content_for :page_actions do %>
+  <a href="<%= new_role_url %>" class="btn btn-primary"><%= feather :plus %> Nuevo</a>
+<% end %>
+<% content_for :table_filter do %>
+  <%= render "shared/index_search_form" %>
+<% end %>
+
+<div class="row">
+  <div class="col-12">
+    <table class="table table-hover table-striped" style="width:100%">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th><%= sort_link @search, 'name', t('activerecord.attributes.role.name') %></th>
+        <th>Usuarios</th>
+        <th>Permisos</th>
+        <th>Estado</th>
+        <th class="text-center">Acciones</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @roles.each do |role| %>
+        <tr>
+          <td><%= role.id %></td>
+          <td><%= link_to role.name, role %></td>
+          <td><%= link_to role.admins.count, admins_path(q: { role_id_eq: role.id }) %></td>
+          <td><%= role.permissions.count %></td>
+          <td><%= span_status role.active %></td>
+          <td class="text-center table-action">
+            <%= link_to_show role %>
+            <%= link_to_edit role %>
+            <%= link_to_delete role %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="row align-items-center justify-content-between">
+  <div class="col-sm-12 col-md-5">
+    <div class="dataTables_info" id="datatables-column-search-text-inputs_info" role="status" aria-live="polite">
+      <%= page_entries_info @roles %>
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-7">
+    <div class="dataTables_paginate paging_simple_numbers" id="datatables-reponsive_paginate">
+      <%= paginate @roles, window: 3 %>
+    </div>
+  </div>
+</div>

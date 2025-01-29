@@ -1,0 +1,117 @@
+label + label.asdndzone {
+  margin-top : 0.5rem;
+}
+
+label.asdndzone {
+  box-sizing       : border-box;
+  display          : block;
+  border           : 2px dashed rgb(209 213 219);
+  border-radius    : 6px;
+  width            : 100%;
+  padding          : 1rem;
+  text-align       : center;
+  background-color : rgb(249 250 251);
+  color            : #495057;
+  cursor           : pointer;
+
+  * {
+    box-sizing : border-box;
+  }
+
+  &:hover {
+    background-color : rgb(243 244 246);
+  }
+
+  &:focus-within {
+    color            : #495057;
+    background-color : #fff;
+    border-color     : #9dbeee;
+    outline          : 0;
+    box-shadow       : 0 0 0 0.2rem rgba(59, 125, 221, 0.25);
+  }
+
+  .asdndz-highlight {
+    color : #8dc63f;
+  }
+
+  .asdndz__icon-container {
+    margin-top      : 0.5rem;
+    display         : flex;
+    justify-content : center;
+    gap             : 6px;
+
+    > div {
+      display          : flex;
+      background-color : #f3f5f7;
+      border-radius    : 5px;
+      overflow         : hidden;
+      border           : 1px dashed #ddd;
+    }
+  }
+
+  .direct-upload {
+    display     : flex;
+    align-items : center;
+    position    : relative;
+    font-size   : 12px;
+    padding     : 5px 8px;
+    gap         : 4px;
+  }
+
+  .direct-upload__complete {
+    background-color : #c8ce3e;
+  }
+
+  .direct-upload__progress {
+    opacity          : 0.57;
+    background-color : #c8ce3e;
+    border-radius    : 5px;
+    position         : absolute;
+    top              : 0;
+    left             : 0;
+    bottom           : 0;
+    height           : 100%;
+    transition       : width 120ms ease-out, opacity 60ms 60ms ease-in;
+    transform        : translate3d(0, 0, 0);
+  }
+
+  .direct-upload__remove {
+    font-size       : 11px;
+    font-weight     : bold;
+    text-decoration : none;
+    color           : $danger;
+    padding         : 5px 8px;
+    border-left     : 1px dashed #ddd;
+
+    &:hover {
+      background-color : $danger-light;
+    }
+  }
+
+  .direct-upload__filename {
+    position      : relative;
+    max-width     : 190px;
+    overflow      : hidden;
+    text-overflow : ellipsis;
+    white-space   : nowrap;
+  }
+
+  .direct-upload__filesize {
+    position  : relative;
+    float     : right;
+    font-size : 10px;
+    color     : #707e87;
+  }
+
+  .direct-upload[data-direct-upload-id='error'] {
+    border : 1px solid red;
+  }
+
+  input[type=file] {
+    @extend .visually-hidden;
+  }
+}
+
+label.asdndzone + .invalid-feedback {
+  display : block;
+}

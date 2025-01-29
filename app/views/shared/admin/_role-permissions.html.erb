@@ -1,0 +1,66 @@
+<div class="d-flex gap-4 flex-wrap align-items-center my-4">
+  <div>
+    <div class="mb-0 fs-4 text-sm fw-bolder">Selecciona los permisos del rol</div>
+    <div class="text-muted text-sm">Permite establecer los permisos del role</div>
+  </div>
+  <div class="form-check form-switch ps-0">
+    <input class="form-check-input ms-auto" type="checkbox" id="collapse-all">
+    <label class="form-check-label text-body ms-3 text-truncate mb-0" for="collapse-all">Expandir todo</label>
+  </div>
+  <div class="form-check form-switch ps-0">
+    <input class="form-check-input ms-auto" type="checkbox" id="select-all">
+    <label class="form-check-label text-body ms-3 text-truncate mb-0" for="select-all">Seleccionar todo</label>
+  </div>
+</div>
+<div class="accordion accordion-light mt-2" id="accordionPermissions">
+  <div class="row row-cols-lg-2">
+    <% all_permissions = role_permissions(@role) %>
+    <% all_permissions.each_slice((all_permissions.size.to_f / 2).ceil) do |element| %>
+      <div class="">
+        <% element.each do |key, value| %>
+          <% @index ||= 0 ; @index += 1 %>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+              <button class="accordion-button collapsed p-2 border-bottom font-weight-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= @index %>">
+                <%= "#{@index}. " %><span class="fw-bold">&nbsp;<%= t("app.controllers.#{key}") %></span>
+              </button>
+            </h2>
+            <div id="collapse<%= @index %>" class="accordion-collapse  p-2 collapse">
+              <div class="accordion-body">
+                <% value.each_with_index do |perm, idx| %>
+                  <div class="form-check form-switch">
+                    <% sw_id = "sw#{@index}#{idx + 1}" %>
+                    <input class="form-check-input perm-switch" type="checkbox" <%= perm.pk.nil? ? '' : 'checked' %> id="<%= sw_id %>" name="role[permission_ids][]" value="<%= perm.id %>">
+                    <label class="form-check-label cursor-pointer" for="<%= sw_id %>"><%= t("app.actions.#{perm.action}") %></label>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+<% content_for :scripts do %>
+  <script type="text/javascript" charset="utf-8">
+    $(function () {
+      let $select_all = $("#select-all");
+      let $collapse_all = $("#collapse-all");
+      if ($(".perm-switch:not(:checked)").length === 0) $select_all.prop('checked', true);
+      $collapse_all.on('change', function () {
+        $("#accordionPermissions .accordion-collapse").collapse($(this).prop('checked') ? 'show' : 'hide');
+      });
+      $select_all.on('change', function () {
+        $(".perm-switch").prop('checked', $(this).prop('checked'));
+      });
+      $('#accordionPermissions .collapse').each(function() {
+        let $collapse = $(this);
+        if ($collapse.find('.form-check-input:checked').length > 0) {
+          $collapse.collapse('show');
+        }
+      });
+      if ($("#accordionPermissions .collapse:not(.show)").length === 0) $collapse_all.prop('checked', true);
+    })
+  </script>
+<% end %>

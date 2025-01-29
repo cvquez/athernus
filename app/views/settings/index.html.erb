@@ -1,0 +1,46 @@
+<% title = "Configuraciones" %>
+<% content_for :title, title %>
+<% content_for :page_title, title %>
+<%# content_for :page_title_small, title_sm %>
+<% content_for :page_actions do %>
+  <a href="#submit" class="btn btn-primary">Guardar</a>
+<% end %>
+
+<%= simple_form_for(Setting.new, url: settings_path) do |f| %>
+  <h4 class="my-4">Configuracion del sitio</h4>
+  <% hint = 'Formatos validos: +595971234567, 0971234567' %>
+
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+  <% if @errors&.any? %>
+    <div class="alert alert-block alert-danger">
+      <span class="mb-3">Se encontraron los siguientes errores:</span>
+      <ul class="m-0">
+        <% @errors.each do |msg| %>
+          <li><%= msg.message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.input :app_name, value: Setting.app_name, label: 'Nombre del sistema', input_html: { readonly: false } %>
+  <%= f.input :maintenance, value: Setting.maintenance, label: 'Modo mantenimiento', as: :boolean %>
+  <%#= f.input :app_logo, value: Setting.app_logo, as: :file, hint: 'Formatos permitidos: .jpg, .png, .svg, .gif',
+  label: 'Logo de la aplicacion' %>
+
+  <h4 class="my-4">Redes sociales</h4>
+  <%= f.input :facebook, value: Setting.facebook, label: 'Facebook' %>
+  <%= f.input :instagram, value: Setting.instagram, label: 'Instagram' %>
+  <%= f.input :linkedin, value: Setting.linkedin, label: 'Linkedin' %>
+  <%= f.input :contact_phone, value: Setting.contact_phone, label: 'Número de contacto' %>
+
+  <h4 class="my-4">Footer</h4>
+  <%= f.input :descripcion, value: Setting.descripcion, label: "Descripcion del Footer" %>
+  <p class="text-muted">Máximo 256 caracteres</p>
+  <%= f.input :telefono1, value: Setting.contact_phone, label: "Telefono (+595)", hint: hint %>
+  <%= f.input :telefono2, value: Setting.contact_phone, label: "Whatsapp (+595)", hint: hint %>
+
+  <div class="mt-5">
+    <%= f.submit 'Guardar', class: 'btn btn-primary' %>
+  </div>
+<% end %>

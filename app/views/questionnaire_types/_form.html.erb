@@ -1,0 +1,55 @@
+<% model_name = t('activerecord.models.questionnaire_type.one', default: 'Questionnaire type') %>
+<% title = @questionnaire_type.persisted? ? "Editar #{model_name}" : "Nuevo #{model_name}" %>
+<% title_sm = @questionnaire_type.persisted? ? "Última modificación: #{strftime @questionnaire_type.updated_at}" : '' %>
+<% content_for :title, title %>
+<% content_for :page_title, title %>
+<% content_for :page_title_small, title_sm %>
+<% content_for :page_actions do %>
+  <%= link_to questionnaire_types_path, class: 'btn btn-white' do %>
+    <%= feather 'arrow-left' %> Volver a la lista
+  <% end  %>
+  <a href="#submit" class="btn btn-primary"><%= feather :plus %> Guardar</a>
+<% end %>
+
+<%= simple_form_for(@questionnaire_type) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <%= f.input :name %>
+
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="maturity_levels-tab" data-bs-toggle="tab" data-bs-target="#maturity_levels" type="button" role="tab" aria-controls="maturity_levels" aria-selected="true">
+        <%= t('activerecord.models.maturity_level.many', default: 'Niveles de Madurez') %>
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="questions-tab" data-bs-toggle="tab" data-bs-target="#questions" type="button" role="tab" aria-controls="questions" aria-selected="false">
+        <%= t('activerecord.models.question.many', default: 'Preguntas') %>
+      </button>
+    </li>
+  </ul>
+  <div class="tab-content mb-3" id="myTabContent">
+    <div class="tab-pane fade show active" id="maturity_levels" role="tabpanel" aria-labelledby="maturity_levels-tab">
+      <%= f.simple_fields_for :maturity_levels do |maturity_level| %>
+        <%= render 'maturity_level_fields', f: maturity_level %>
+      <% end %>
+      <div class="links">
+        <%= link_to_add_association t('permissions.actions.create'), f, :maturity_levels, class: 'btn btn-outline-primary', association_insertion_method: :append %>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="questions" role="tabpanel" aria-labelledby="questions-tab">
+      <%= f.simple_fields_for :questions do |question_form| %>
+        <%= render 'question_fields', f: question_form %>
+      <% end %>
+      <div class="links">
+        <%= link_to_add_association t('permissions.actions.create'), f, :questions, class: 'btn btn-outline-primary', association_insertion_method: :append %>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, class: 'btn btn-primary' %>
+    <%= link_to 'Volver', questionnaire_types_path, class: 'btn btn-secondary' %>
+  </div>
+<% end %>

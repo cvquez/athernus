@@ -1,0 +1,36 @@
+shared:
+  controllers:
+    exclude:
+      - action_mailbox/*
+      - active_storage/*
+      - admins/sessions
+      - users/sessions
+      - users/registrations
+      - users/passwords
+      - rails/*
+      - turbo/*
+      - devise/*
+      - site
+      - error
+      - errors
+      - dashboard
+  actions:
+    create:
+      - new
+      - create
+      - copy
+    read:
+      - show
+      - index
+      - download
+      - report
+    update:
+      - edit
+      - update
+      - save
+      - draft
+      - publish
+      - sort
+    delete:
+      - destroy
+      - destroy_image

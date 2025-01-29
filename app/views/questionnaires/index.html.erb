@@ -1,0 +1,77 @@
+<% model_name = t('activerecord.models.questionnaire.other', default: 'Questionnaires') %>
+<% title = "#{model_name}" %>
+<% content_for :title, title %>
+<% content_for :page_title, title %>
+<% content_for :page_actions do %>
+  <% if authorized('questionnaires', 'read') %>
+    <a href="<%= new_questionnaire_url %>" class="btn btn-primary"><%= feather :plus %> Nuevo</a>
+    <a href="<%= questionnaires_path(format: :csv) %>" class="btn btn-secondary"><%= fa 'file-csv' %> CSV</a>
+  <% end %>
+<% end %>
+<% content_for :table_filter do %>
+  <%= render "shared/index_search_form" %>
+<% end %>
+
+<div class="row">
+  <div class="col-12">
+    <div class="table-responsive">
+      <table class="table table-hover table-striped" style="width:100%">
+        <thead>
+        <tr>
+          <th><%= sort_link @search, 'id', 'ID' %></th>
+          <th><%= sort_link @search, 'questionnaire_type_id', t('activerecord.attributes.questionnaire.questionnaire_type_id') %></th>
+          <th><%= sort_link @search, 'name', t('activerecord.attributes.questionnaire.name') %></th>
+          <th><%= sort_link @search, 'slug', t('activerecord.attributes.questionnaire.slug') %></th>
+          <th><%= sort_link @search, 'status', t('activerecord.attributes.questionnaire.status') %></th>
+
+          <th class="text-center">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% if @questionnaires.length > 0 %>
+          <% @questionnaires.each do |questionnaire| %>
+            <tr>
+              <td><%= questionnaire.id %></td>
+              <td><%= link_to questionnaire.questionnaire_type.name, questionnaire.questionnaire_type %></td>
+              <td><%= questionnaire.name %></td>
+              <td><%= questionnaire.slug %></td>
+              <td><%= span_status questionnaire.status %></td>
+              <td class="text-center table-action">
+                <%= link_to new_athernus_path(slug: questionnaire.slug), target: '_blank' do %>
+                  <%= icon :share %>
+                <% end %>
+                <%= link_to_show questionnaire %>
+                <%= link_to_edit questionnaire %>
+                <%= link_to_delete questionnaire %>
+              </td>
+            </tr>
+          <% end %>
+        <% else %>
+          <tr>
+            <td colspan="7">
+              <div class="text-center fs-5 text-muted">
+                <div class="mb-2"><%= page_entries_info @questionnaires %></div>
+                <% unless @search.conditions.present? %>
+                  <a href="<%= new_questionnaire_url %>" class="btn btn-primary"><%= feather :plus %> Agregar</a>
+                <% end %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="row align-items-center justify-content-between">
+  <div class="col-sm-12 col-md-5">
+    <div class="dataTables_info" id="datatables-column-search-text-inputs_info" role="status" aria-live="polite">
+      <%= page_entries_info @questionnaires %>
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-7">
+    <div class="dataTables_paginate paging_simple_numbers" id="datatables-reponsive_paginate">
+      <%= paginate @questionnaires, window: 3 %>
+    </div>
+  </div>
+</div>

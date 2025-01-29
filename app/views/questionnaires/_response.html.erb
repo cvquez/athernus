@@ -1,0 +1,15 @@
+<tr>
+  <td>
+    <div class="d-flex flex-column">
+      <span><%= icon 'fingerprint', :awesome, class: 'me-1' %><%= response.session %></span>
+      <span><%= icon 'network-wired', :awesome, class: 'me-1' %><%= response.ip_address %></span>
+      <span><%= icon 'globe', :awesome, class: 'me-1' %><%= response.user_agent %></span>
+    </div>
+  </td>
+  <td>
+    <div class="d-flex flex-column">
+      <span><%= response.person&.name %></span>
+      <span><%= response.person&.email %></span>
+    </div>
+  </td>
+</tr>

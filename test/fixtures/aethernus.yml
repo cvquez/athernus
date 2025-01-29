@@ -1,0 +1,32 @@
+# == Schema Information
+#
+# Table name: athernus
+#
+#  id               :bigint           not null, primary key
+#  name             :string
+#  slug             :string
+#  status           :boolean
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  questionnaire_id :bigint           not null
+#
+# Indexes
+#
+#  index_athernus_on_questionnaire_id  (questionnaire_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (questionnaire_id => questionnaires.id)
+#
+
+one:
+  name: MyString
+  status: false
+  slug: MyString
+  questionnaire: one
+
+two:
+  name: MyString
+  status: false
+  slug: MyString
+  questionnaire: two

@@ -1,0 +1,20 @@
+es:
+  permissions:
+    controllers:
+      admin: 'Panel de control'
+      admins: 'Administradores'
+      banners: 'Banners'
+      permissions: 'Permisos'
+      roles: 'Roles'
+      site: 'Sitio'
+      faqs: 'Preguntas'
+      customers: 'Clientes'
+      pending_queries: 'Clientes'
+      models: 'Modelos'
+
+    actions:
+      read: 'Leer'
+      create: 'Crear'
+      update: 'Actualizar'
+      delete: 'Eliminar'
+      confirm: '¿Estás seguro de que quieres eliminar este registro?'

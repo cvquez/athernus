@@ -1,0 +1,22 @@
+#file: noinspection YAMLSchemaValidation
+es:
+  simple_form:
+    "yes": 'Si'
+    "no": 'No'
+    required:
+      mark: '*'
+      text: 'requerido'
+    error_notification:
+      default_message: 'Ocurrio un error al guardar los datos, favor verificar a continuación'
+    labels:
+      defaults:
+        active: 'Activo'
+    hints:
+      defaults:
+        active: 'Desactivar para ocultar'
+    placeholders:
+      category:
+        name: 'Ingrese el nombre de la categoría'
+        color: 'Seleccione un color para identificar visualmente esta categoría'   
+    
+      

@@ -1,0 +1,76 @@
+<% model_name = t('activerecord.models.request_log.other', default: 'Request logs') %>
+<% title = "#{model_name}" %>
+<% content_for :title, title %>
+<% content_for :page_title, title %>
+<% content_for :page_actions do %>
+  <a href="<%= new_request_log_url %>" class="btn btn-primary"><%= feather :plus %> Nuevo</a>
+<% end %>
+<% content_for :table_filter do %>
+  <%= render "shared/index_search_form" %>
+<% end %>
+
+<div class="row">
+  <div class="col-12">
+    <div class="table-responsive">
+      <table class="table table-hover table-striped" style="width:100%">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th class="text-center"><%= sort_link @search, 'started_at', 'Fecha' %></th>
+          <th><%= sort_link @search, 'url', t('activerecord.attributes.request_log.url') %></th>
+          <th class="text-center"><%= sort_link @search, 'response_code', t('activerecord.attributes.request_log.response_code') %></th>
+          <th><%= sort_link @search, 'content_length', t('activerecord.attributes.request_log.content_length') %></th>
+          <th><%= sort_link @search, 'ended_at', 'Duración' %></th>
+          <th class="text-center">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% if @request_logs.length > 0 %>
+          <% @request_logs.each do |request_log| %>
+            <tr>
+              <td>#<%= request_log.id %></td>
+              <td class="text-center"><%= strftime request_log.started_at %></td>
+              <td>
+                <small class=" badge bg-primary"><%= request_log.method %></small>
+                <%= link_to request_log.url, request_log_path(request_log) %>
+                <div><code><%= request_log.content_type %></code></div>
+              </td>
+              <td class="text-center"><%= response_code request_log.response_code %></td>
+              <td><%= number_to_human_size request_log.content_length %></td>
+              <td><%= time_duration request_log.response_time %></td>
+              <td class="text-center table-action">
+                <%= link_to_show request_log %>
+                <%= link_to_edit request_log %>
+                <%= link_to_delete request_log %>
+              </td>
+            </tr>
+          <% end %>
+        <% else %>
+          <tr>
+            <td colspan="14">
+              <div class="text-center fs-5 text-muted">
+                <div class="mb-2"><%= page_entries_info @request_logs %></div>
+                <% unless @search.conditions.present? %>
+                  <a href="<%= new_request_log_url %>" class="btn btn-primary"><%= feather :plus %> Agregar</a>
+                <% end %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="row align-items-center justify-content-between">
+  <div class="col-sm-12 col-md-5">
+    <div class="dataTables_info" id="datatables-column-search-text-inputs_info" role="status" aria-live="polite">
+      <%= page_entries_info @request_logs %>
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-7">
+    <div class="dataTables_paginate paging_simple_numbers" id="datatables-reponsive_paginate">
+      <%= paginate @request_logs, window: 3 %>
+    </div>
+  </div>
+</div>

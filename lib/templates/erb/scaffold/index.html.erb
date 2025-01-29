@@ -1,0 +1,72 @@
+<%% model_name = t('activerecord.models.<%= singular_table_name %>.other', default: '<%= human_name.pluralize %>') %>
+<%% title = "#{model_name}" %>
+<%% content_for :title, title %>
+<%% content_for :page_title, title %>
+<%% content_for :page_actions do %>
+  <%% if authorized('<%= plural_table_name %>', 'read') %>
+    <a href="<%%= <%= new_helper %> %>" class="btn btn-primary"><%%= feather :plus %> Nuevo</a>
+    <a href="<%%= <%= index_helper %>_path(format: :csv) %>" class="btn btn-secondary"><%%= fa 'file-csv' %> CSV</a>
+  <%% end %>
+<%% end %>
+<%% content_for :table_filter do %>
+<%%= render "shared/index_search_form" %>
+<%% end %>
+
+<div class="row">
+  <div class="col-12">
+    <div class="table-responsive">
+      <table class="table table-hover table-striped" style="width:100%">
+        <thead>
+        <tr>
+          <th><%%= sort_link @search, 'id', 'ID' %></th>
+          <% c = 2 %>
+          <% attributes.reject(&:password_digest?).each do |attribute| -%><% unless attribute.attachment? || attribute.attachments? -%><th><%%= sort_link @search, '<%= attribute.column_name %>', t('activerecord.attributes.<%= singular_table_name %>.<%= attribute.column_name %>') %></th><% c += 1 %><% end -%><% end -%>
+
+
+          <th class="text-center">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <%% if @<%= plural_table_name %>.length > 0 %>
+          <%% @<%= plural_table_name %>.each do |<%= singular_table_name %>| %>
+          <tr>
+            <td><%%= <%= singular_table_name %>.id %></td>
+
+            <% attributes.reject(&:password_digest?).each do |attribute| -%><% unless attribute.attachment? || attribute.attachments? -%><td><%%= <%= 'span_status' if attribute.type == :boolean %> <%= singular_table_name %>.<%= attribute.column_name %> %></td><% end -%><% end -%>
+
+            <td class="text-center table-action">
+              <%%= link_to_show <%= singular_table_name %> %>
+              <%%= link_to_edit <%= singular_table_name %> %>
+              <%%= link_to_delete <%= singular_table_name %> %>
+            </td>
+          </tr>
+          <%% end %>
+        <%% else %>
+          <tr>
+            <td colspan="<%= c+1 %>">
+              <div class="text-center fs-5 text-muted">
+                <div class="mb-2"><%%= page_entries_info @<%= plural_table_name %> %></div>
+                <%% unless @search.conditions.present? %>
+                  <a href="<%%= <%= new_helper %> %>" class="btn btn-primary"><%%= feather :plus %> Agregar</a>
+                <%% end %>
+              </div>
+            </td>
+          </tr>
+        <%% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="row align-items-center justify-content-between">
+  <div class="col-sm-12 col-md-5">
+    <div class="dataTables_info" id="datatables-column-search-text-inputs_info" role="status" aria-live="polite">
+      <%%= page_entries_info @<%= plural_table_name %> %>
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-7">
+    <div class="dataTables_paginate paging_simple_numbers" id="datatables-reponsive_paginate">
+      <%%= paginate @<%= plural_table_name %>, window: 3 %>
+    </div>
+  </div>
+</div>

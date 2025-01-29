@@ -1,0 +1,66 @@
+<% model_name = t('activerecord.models.questionnaire_type.one', default: 'Questionnaire type') %>
+<% title = "#{model_name}" %>
+<% title_sm = "Última modificación: #{strftime @questionnaire_type.updated_at}" %>
+<% content_for :title, title %>
+<% content_for :page_title do %>
+  <%= title %>
+<% end %>
+<% content_for :page_title_small, title_sm %>
+<% content_for :page_actions do %>
+  <a href="<%= questionnaire_types_path %>" class="btn btn-white"><%= feather 'arrow-left' %> Volver a la lista</a>
+  <a href="<%= edit_questionnaire_type_url(@questionnaire_type) %>" class="btn btn-primary"><%= feather 'edit-2' %>
+    Editar</a>
+<% end %>
+
+<div class="card mb-4">
+  <div class="card-body">
+    <h5 class="card-title"><%= t('activerecord.attributes.questionnaire_type.name') %></h5>
+    <p class="card-text fs-4"><%= @questionnaire_type.name %></p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h3 class="mb-0">Detalle</h3>
+    <span class="badge bg-primary"><%= @questionnaire_type.questions.count %> preguntas</span>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th><%= t('activerecord.attributes.question.name') %></th>
+            <th><%= t('activerecord.attributes.question.content') %></th>
+            <th><%= t('activerecord.attributes.question.category') %></th>
+            <th><%= t('activerecord.attributes.question.focus_area') %></th>
+            <th><%= t('activerecord.attributes.question.business_dimension') %></th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @questionnaire_type.questions.each_with_index do |question, index| %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td><%= question.name %></td>
+            <td><%= question.content %></td>
+            <td><span class="badge bg-secondary"><%= question.category.name %></span></td>
+            <td><span class="badge bg-info"><%= question.focus_area.name %></span></td>
+            <td><%= question.business_dimension&.name ? content_tag(:span, question.business_dimension.name, class: "badge bg-success") : "-" %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">Niveles de Madurez</div>
+  <ul class="list-group list-group-flush">
+    <% @questionnaire_type.maturity_levels.each do |level| %>
+      <li class="list-group-item">
+        <%= level.name %> (Min: <%= level.min %>, Max: <%= level.max %>)
+      </li>
+    <% end %>
+  </ul>
+</div>

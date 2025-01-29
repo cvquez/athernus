@@ -1,0 +1,70 @@
+<% model_name = t('activerecord.models.focus_area.other', default: 'Focus areas') %>
+<% title = "#{model_name}" %>
+<% content_for :title, title %>
+<% content_for :page_title, title %>
+<% content_for :page_actions do %>
+  <% if authorized('focus_areas', 'read') %>
+    <a href="<%= new_focus_area_url %>" class="btn btn-primary"><%= feather :plus %> Nuevo</a>
+    <a href="<%= focus_areas_path(format: :csv) %>" class="btn btn-secondary"><%= fa 'file-csv' %> CSV</a>
+  <% end %>
+<% end %>
+<% content_for :table_filter do %>
+<%= render "shared/index_search_form" %>
+<% end %>
+
+<div class="row">
+  <div class="col-12">
+    <div class="table-responsive">
+      <table class="table table-hover table-striped" style="width:100%">
+        <thead>
+        <tr>
+          <th><%= sort_link @search, 'id', 'ID' %></th>
+          
+          <th><%= sort_link @search, 'name', t('activerecord.attributes.focus_area.name') %></th>
+
+          <th class="text-center">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% if @focus_areas.length > 0 %>
+          <% @focus_areas.each do |focus_area| %>
+          <tr>
+            <td><%= focus_area.id %></td>
+
+            <td><%=  focus_area.name %></td>
+            <td class="text-center table-action">
+              <%= link_to_show focus_area %>
+              <%= link_to_edit focus_area %>
+              <%= link_to_delete focus_area %>
+            </td>
+          </tr>
+          <% end %>
+        <% else %>
+          <tr>
+            <td colspan="4">
+              <div class="text-center fs-5 text-muted">
+                <div class="mb-2"><%= page_entries_info @focus_areas %></div>
+                <% unless @search.conditions.present? %>
+                  <a href="<%= new_focus_area_url %>" class="btn btn-primary"><%= feather :plus %> Agregar</a>
+                <% end %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="row align-items-center justify-content-between">
+  <div class="col-sm-12 col-md-5">
+    <div class="dataTables_info" id="datatables-column-search-text-inputs_info" role="status" aria-live="polite">
+      <%= page_entries_info @focus_areas %>
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-7">
+    <div class="dataTables_paginate paging_simple_numbers" id="datatables-reponsive_paginate">
+      <%= paginate @focus_areas, window: 3 %>
+    </div>
+  </div>
+</div>

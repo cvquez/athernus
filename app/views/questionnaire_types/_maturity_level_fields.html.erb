@@ -1,0 +1,27 @@
+<div class="nested-fields">
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title mb-0">
+        <span class="badge bg-primary">
+          <%= t('activerecord.models.maturity_level.one', default: 'Maturity level') %> #<%= f.object&.id %>
+        </span>
+      </h5>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.input :name, input_html: { class: 'form-control-lg' } %>
+          <%= f.input :description, input_html: { rows: 3 } %>
+        </div>
+        <div class="col-md-6">
+          <%= f.input :color, as: :color, input_html: { class: 'form-control-color' } %>
+          <%= f.input :min, input_html: { min: 0, max: 100, step: 1 } %>
+          <%= f.input :max, input_html: { min: 0, max: 100, step: 1 } %>
+        </div>
+      </div>
+      <div class="text-end mt-3">
+        <%= link_to_remove_association t('permissions.actions.delete'), f, class: 'btn btn-outline-danger', data: { confirm: t('permissions.actions.confirm') } %>
+      </div>
+    </div>
+  </div>
+</div>

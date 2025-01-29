@@ -1,0 +1,28 @@
+<%# frozen_string_literal: true %>
+<%% model_name = t('activerecord.models.<%= singular_table_name %>.one', default: '<%= human_name %>') %>
+<%% title = @<%= singular_table_name %>.persisted? ? "Editar #{model_name}" : "Nuevo #{model_name}" %>
+<%% title_sm = @<%= singular_table_name %>.persisted? ? "Última modificación: #{strftime @<%= singular_table_name %>.updated_at}" : '' %>
+<%% content_for :title, title %>
+<%% content_for :page_title, title %>
+<%% content_for :page_title_small, title_sm %>
+<%% content_for :page_actions do %>
+  <%%= link_to <%= index_helper %>_path, class: 'btn btn-white' do %>
+    <%%= feather 'arrow-left' %> Volver a la lista
+  <%% end  %>
+  <a href="#submit" class="btn btn-primary"><%%= feather :plus %> Guardar</a>
+<%% end %>
+
+<%%= simple_form_for(@<%= singular_table_name %>) do |f| %>
+  <%%= f.error_notification %>
+  <%%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <%- attributes.each do |attribute| -%>
+  <%%= f.<%= attribute.reference? ? :association : :input %> :<%= attribute.name %> %>
+  <%- end -%>
+
+  <div class="form-actions">
+    <%%= f.button :submit, class: 'btn btn-primary' %>
+    <%%= link_to 'Ver registro', <%= model_resource_name(prefix: "@") %>, class: 'btn btn-secondary' if <%= model_resource_name(prefix: "@") %>.id %>
+    <%%= link_to 'Volver', <%= index_helper %>_path, class: 'btn btn-secondary' %>
+  </div>
+<%% end %>

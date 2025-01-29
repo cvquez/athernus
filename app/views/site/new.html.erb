@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card mt-5">
+        <div class="card-header">
+          <h1 class="card-title text-center mb-0"><%= @questionnaire.name %></h1>
+        </div>
+        <div class="card-body">
+          <%= simple_form_for @response, url: athernus_path, method: :post do |f| %>
+            <%= f.error_notification %>
+            <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+            <%= f.hidden_field :questionnaire_slug, value: @questionnaire.slug %>
+            <%= f.hidden_field :session %>
+
+            <%= f.simple_fields_for :person do |person_form| %>
+              <%= person_form.input :name %>
+              <%= person_form.input :email %>
+            <% end %>
+
+            <%= f.simple_fields_for :answers do |answer_form| %>
+              <hr>
+              <div class="mb-3 text-center">
+                <p class="mb-1"><strong><%= answer_form.object.question.content %></strong></p>
+              <%= answer_form.input :value, as: :radio_buttons, collection: 1..5, label: false, item_wrapper_class: 'form-check form-check-inline' %>
+              <%= answer_form.hidden_field :question_id %>
+              </div>
+            <% end %>
+            <div class="text-center">
+              <%= f.button :submit, 'Enviar', class: 'btn btn-primary' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

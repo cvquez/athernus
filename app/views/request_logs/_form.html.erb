@@ -1,0 +1,36 @@
+
+<% model_name = t('activerecord.models.request_log.one', default: 'Request log') %>
+<% title = @request_log.persisted? ? "Editar #{model_name}" : "Nuevo #{model_name}" %>
+<% title_sm = @request_log.persisted? ? "Última modificación: #{strftime @request_log.updated_at}" : '' %>
+<% content_for :title, title %>
+<% content_for :page_title, title %>
+<% content_for :page_title_small, title_sm %>
+<% content_for :page_actions do %>
+  <%= link_to request_logs_path, class: 'btn btn-white' do %>
+    <%= feather 'arrow-left' %> Volver a la lista
+  <% end  %>
+  <a href="#submit" class="btn btn-primary"><%= feather :plus %> Guardar</a>
+<% end %>
+
+<%= simple_form_for(@request_log) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <%= f.input :url %>
+  <%= f.input :method %>
+  <%= f.input :request_body %>
+  <%= f.input :response_body %>
+  <%= f.input :response_code %>
+  <%= f.input :content_type %>
+  <%= f.input :content_length %>
+  <%= f.input :started_at %>
+  <%= f.input :ended_at %>
+  <%= f.input :initiator %>
+  <%= f.input :response_headers %>
+
+  <div class="form-actions">
+    <%= f.button :submit, class: 'btn btn-primary' %>
+    <%= link_to 'Ver registro', @request_log, class: 'btn btn-secondary' if @request_log.id %>
+    <%= link_to 'Volver', request_logs_path, class: 'btn btn-secondary' %>
+  </div>
+<% end %>

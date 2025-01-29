@@ -1,0 +1,32 @@
+require: rubocop-rails
+
+Layout/LineLength:
+  Max: 130
+
+ClassLength:
+  CountComments: false
+  Max: 150
+
+ModuleLength:
+  CountComments: false
+  Max: 250
+
+MethodLength:
+  CountComments: false
+  Max: 50
+
+BlockLength:
+  CountComments: false
+  Max: 50
+  Exclude:
+    - '**/spec/**/*'
+    - '**/*.rake'
+    - '**/*_spec.rb'
+    - 'spec/factories/**/*'
+
+Metrics/AbcSize:
+  Max: 45
+
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+

@@ -1,0 +1,2 @@
+module QuestionnaireTypesHelper
+end

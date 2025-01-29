@@ -1,0 +1,31 @@
+
+<% model_name = t('activerecord.models.question.one', default: 'Question') %>
+<% title = @question.persisted? ? "Editar #{model_name}" : "Nuevo #{model_name}" %>
+<% title_sm = @question.persisted? ? "Última modificación: #{strftime @question.updated_at}" : '' %>
+<% content_for :title, title %>
+<% content_for :page_title, title %>
+<% content_for :page_title_small, title_sm %>
+<% content_for :page_actions do %>
+  <%= link_to questions_path, class: 'btn btn-white' do %>
+    <%= feather 'arrow-left' %> Volver a la lista
+  <% end  %>
+  <a href="#submit" class="btn btn-primary"><%= feather :plus %> Guardar</a>
+<% end %>
+
+<%= simple_form_for(@question) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <%= f.input :name %>
+  <%= f.input :content %>
+  <%= f.association :questionnaire_type, label: t('activerecord.attributes.question.questionnaire_type_id') %>
+  <%= f.association :category, label: t('activerecord.attributes.question.category_id') %>
+  <%= f.association :focus_area, label: t('activerecord.attributes.question.focus_area_id') %>
+  <%= f.association :business_dimension, label: t('activerecord.attributes.question.business_dimension_id') %>
+
+  <div class="form-actions">
+    <%= f.button :submit, class: 'btn btn-primary' %>
+    <%= link_to 'Ver registro', @question, class: 'btn btn-secondary' if @question.id %>
+    <%= link_to 'Volver', questions_path, class: 'btn btn-secondary' %>
+  </div>
+<% end %>

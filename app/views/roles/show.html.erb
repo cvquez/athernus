@@ -1,0 +1,61 @@
+<% model_name = t('activerecord.models.role.one', default: 'Role') %>
+<% title = "#{model_name}: #{@role.name}" %>
+<% title_sm = "Última modificación: #{strftime @role.updated_at}" %>
+<% content_for :title, title %>
+<% content_for :page_title do %>
+  <%= title %>
+<% end %>
+<% content_for :page_title_small, title_sm %>
+<% content_for :page_actions do %>
+  <a href="<%= roles_path %>" class="btn btn-white"><%= feather 'arrow-left' %> Volver a la lista</a>
+  <a href="<%= edit_role_url(@role) %>" class="btn btn-primary"><%= feather 'edit-2' %> Editar</a>
+<% end %>
+<div class="table-responsive">
+  <table class="table table-striped table-responsive">
+    <tbody>
+    <tr>
+      <th><%= t('activerecord.attributes.role.name') %></th>
+      <td>
+        <%= @role.name %>
+      </td>
+    </tr>
+    <tr>
+      <th>Estado</th>
+      <td><%= span_status @role.active %></td>
+    </tr>
+    <tr>
+      <th>Fecha de creación</th>
+      <td><%= strftime @role.created_at %></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="table-responsive mx-3">
+
+  <table class="table table-hover table-striped table-sm mt-2 mb-6">
+    <thead>
+    <tr>
+      <th>Nº</th>
+      <th>Tipo de recurso</th>
+      <th>Permisos</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% role_permissions(@role).each_with_index do |(key, value), index| %>
+      <tr>
+        <td><%= index + 1 %></td>
+        <td class="fw-bold"><%= t("app.controllers.#{key}") %></td>
+        <td>
+          <div class="p-2 mb-1 d-flex flex-row flex-wrap gap-1">
+            <% value.each_with_index do |perm| %>
+              <span class='badge <%= perm.allowed ? 'bg-success' : 'bg-danger' %> me-1'><%= t("app.actions.#{perm.action}") %></span>
+            <% end %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+
+    </tbody>
+  </table>
+</div>

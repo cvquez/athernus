@@ -1,0 +1,33 @@
+
+<% model_name = t('activerecord.models.category.one', default: 'Category') %>
+<% title = @category.persisted? ? "Editar #{model_name}" : "Nuevo #{model_name}" %>
+<% title_sm = @category.persisted? ? "Última modificación: #{strftime @category.updated_at}" : '' %>
+<% content_for :title, title %>
+<% content_for :page_title, title %>
+<% content_for :page_title_small, title_sm %>
+<% content_for :page_actions do %>
+  <%= link_to categories_path, class: 'btn btn-white' do %>
+    <%= feather 'arrow-left' %> Volver a la lista
+  <% end  %>
+  <a href="#submit" class="btn btn-primary"><%= feather :plus %> Guardar</a>
+<% end %>
+
+<%= simple_form_for(@category) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="row">
+    <div class="col-md-6">
+      <%= f.input :name %>
+    </div>
+    <div class="col-md-6">
+      <%= f.input :color, as: :color %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, class: 'btn btn-primary' %>
+    <%= link_to 'Ver registro', @category, class: 'btn btn-secondary' if @category.id %>
+    <%= link_to 'Volver', categories_path, class: 'btn btn-secondary' %>
+  </div>
+<% end %>

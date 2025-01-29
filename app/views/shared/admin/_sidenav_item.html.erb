@@ -1,0 +1,20 @@
+<li class="nav-item">
+  <% href = content.nil? ? url : "##{options[:id]}" %>
+  <a <%= 'data-bs-toggle="collapse"'.html_safe if content %> href="<%= href %>"
+     class="nav-link <%= 'collapsed' if content %> <%= 'active' if active %>"
+     <%= 'role="button"'.html_safe if content %> <%= 'aria-expanded=true'.html_safe if content && active %>>
+    <% if options[:icon] %>
+      <div class="nav-icon">
+        <span class="fas fa-fw fa-<%= options[:icon] %>"></span>
+      </div>
+    <% end %>
+    <span class="nav-link-text ms-1"><%= options[:text] %></span>
+  </a>
+  <% if content %>
+    <div class="collapse <%= 'show' if active %>" id="<%= options[:id] %>">
+      <ul class="nav ms-4 ps-3">
+        <%= content %>
+      </ul>
+    </div>
+  <% end %>
+</li>

@@ -1,0 +1,70 @@
+<% model_name = t('activerecord.models.answer.other', default: 'Answers') %>
+<% title = "#{model_name}" %>
+<% content_for :title, title %>
+<% content_for :page_title, title %>
+<% content_for :page_actions do %>
+  <% if authorized('answers', 'read') %>
+    <a href="<%= new_answer_url %>" class="btn btn-primary"><%= feather :plus %> Nuevo</a>
+    <a href="<%= answers_path(format: :csv) %>" class="btn btn-secondary"><%= fa 'file-csv' %> CSV</a>
+  <% end %>
+<% end %>
+<% content_for :table_filter do %>
+<%= render "shared/index_search_form" %>
+<% end %>
+
+<div class="row">
+  <div class="col-12">
+    <div class="table-responsive">
+      <table class="table table-hover table-striped" style="width:100%">
+        <thead>
+        <tr>
+          <th><%= sort_link @search, 'id', 'ID' %></th>
+          
+          <th><%= sort_link @search, 'value', t('activerecord.attributes.answer.value') %></th><th><%= sort_link @search, 'response_id', t('activerecord.attributes.answer.response_id') %></th><th><%= sort_link @search, 'question_id', t('activerecord.attributes.answer.question_id') %></th>
+
+          <th class="text-center">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% if @answers.length > 0 %>
+          <% @answers.each do |answer| %>
+          <tr>
+            <td><%= answer.id %></td>
+
+            <td><%=  answer.value %></td><td><%=  answer.response_id %></td><td><%=  answer.question_id %></td>
+            <td class="text-center table-action">
+              <%= link_to_show answer %>
+              <%= link_to_edit answer %>
+              <%= link_to_delete answer %>
+            </td>
+          </tr>
+          <% end %>
+        <% else %>
+          <tr>
+            <td colspan="6">
+              <div class="text-center fs-5 text-muted">
+                <div class="mb-2"><%= page_entries_info @answers %></div>
+                <% unless @search.conditions.present? %>
+                  <a href="<%= new_answer_url %>" class="btn btn-primary"><%= feather :plus %> Agregar</a>
+                <% end %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="row align-items-center justify-content-between">
+  <div class="col-sm-12 col-md-5">
+    <div class="dataTables_info" id="datatables-column-search-text-inputs_info" role="status" aria-live="polite">
+      <%= page_entries_info @answers %>
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-7">
+    <div class="dataTables_paginate paging_simple_numbers" id="datatables-reponsive_paginate">
+      <%= paginate @answers, window: 3 %>
+    </div>
+  </div>
+</div>
