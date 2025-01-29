@@ -1,7 +1,6 @@
 # == Route Map
 
 Rails.application.routes.draw do
-
   root 'site#index'
 
   get '/athernus/:slug', to: 'site#new', as: 'new_athernus'
@@ -30,7 +29,5 @@ Rails.application.routes.draw do
     resources :admins
     resources :settings, only: %i[index create]
     resources :request_logs
-
   end
-
 end
