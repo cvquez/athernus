@@ -38,6 +38,9 @@
 class Admin < ApplicationRecord
   devise :database_authenticatable, :timeoutable, :rememberable,
          :validatable, :trackable, timeout_in: 30.minutes
+
+  attr_accessor :login
+
   paginates_per 10
   ransack_alias :search, :username_or_email_or_first_name_or_lastname
 
@@ -46,9 +49,21 @@ class Admin < ApplicationRecord
 
   validates :role_id, presence: true
   validate :password_complexity
+
+  def self.find_for_database_authentication(warden_conditions)
+    conditions = warden_conditions.dup
+    if (login = conditions.delete(:login))
+      where(conditions).where(['lower(username) = :value OR lower(email) = :value',
+                               { value: login.downcase }]).first
+    else
+      where(conditions).first
+    end
+  end
+
   def name
     "#{first_name} #{last_name}"
   end
+
   def permissions
     role.permissions.where('role_permissions.allowed')
   end
@@ -69,6 +84,4 @@ class Admin < ApplicationRecord
 
     errors.add :password, 'La contraseña es insegura (se debe utilizar combinación de mayúsculas y minúsculas)'
   end
-
 end
-
