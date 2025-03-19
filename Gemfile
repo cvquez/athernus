@@ -5,7 +5,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '~>3.3.3'
 
-gem 'rails', '~> 7.0.8'
+gem 'rails', '~> 7.1.3'
 
 # Sprockets is a Ruby library for compiling and serving web assets.
 gem 'sprockets-rails', require: 'sprockets/railtie'
@@ -16,7 +16,7 @@ gem 'devise'
 gem 'jbuilder', '~> 2.7'
 gem 'kaminari'
 gem 'pg'
-gem 'puma', '~> 5.0'
+gem 'puma', '~> 6.0'
 gem 'sass-rails', '>= 6'
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]

@@ -46,7 +46,7 @@ Devise.setup do |config|
   # session. If you need permissions, you should implement that in a before filter.
   # You can also supply a hash where the value is a boolean determining whether
   # or not authentication should be aborted when the value is not present.
-  config.authentication_keys = [:username]
+  config.authentication_keys = [:login]
 
   # Configure parameters from the request object used for authentication. Each entry
   # given should be a request method and it will automatically be passed to the
@@ -58,12 +58,12 @@ Devise.setup do |config|
   # Configure which authentication keys should be case-insensitive.
   # These keys will be downcased upon creating or modifying a user and when used
   # to authenticate or find a user. Default is :email.
-  config.case_insensitive_keys = [:username]
+  config.case_insensitive_keys = %i[username email]
 
   # Configure which authentication keys should have whitespace stripped.
   # These keys will have whitespace before and after removed upon creating or
   # modifying a user and when used to authenticate or find a user. Default is :email.
-  config.strip_whitespace_keys = [:username]
+  config.strip_whitespace_keys = %i[username email]
 
   # Tell if authentication through request.params is enabled. True by default.
   # It can be set to an array that will enable params authentication only for the
@@ -114,15 +114,8 @@ Devise.setup do |config|
   # ==> Configuration for :database_authenticatable
   # For bcrypt, this is the cost for hashing the password and defaults to 12. If
   # using other algorithms, it sets how many times you want the password to be hashed.
-  # The number of stretches used for generating the hashed password are stored
-  # with the hashed password. This allows you to change the stretches without
-  # invalidating existing passwords.
-  #
-  # Limiting the stretches to just one in testing will increase the performance of
-  # your test suite dramatically. However, it is STRONGLY RECOMMENDED to not use
-  # a value less than 10 in other environments. Note that, for bcrypt (the default
-  # algorithm), the cost increases exponentially with the number of stretches (e.g.
-  # a value of 20 is already extremely slow: approx. 60 seconds for 1 calculation).
+  # The number of stretches used for generating the hashed password. For bcrypt
+  # (the default algorithm), the cost increases exponentially with the number of stretches.
   config.stretches = Rails.env.test? ? 1 : 12
 
   # Set up a pepper to generate the hashed password.
@@ -310,4 +303,7 @@ Devise.setup do |config|
   # When set to false, does not sign a user in automatically after their password is
   # changed. Defaults to true, so a user is signed in automatically after changing a password.
   # config.sign_in_after_change_password = true
+
+  # Add configuration to allow authentication with username or email
+  config.authentication_keys = [:login]
 end
