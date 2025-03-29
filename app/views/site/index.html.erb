@@ -5,7 +5,11 @@
         <div class="col-lg-6">
           <h1 class="display-4 fw-bold mb-4">Bienvenido a Athernus</h1>
           <p class="lead mb-4">Descubre cómo Athernus puede lograr capacidades para la evolución continua de tu negocio en un contexto de cambio constante.</p>
-          <a href="#" class="btn btn-custom">Comienza tu evolución</a>
+          <% if @questionnaire %>
+            <%= link_to "Comienza tu evolución", new_athernus_path(@questionnaire.slug), class: 'btn btn-custom' %>
+          <% else %>
+            <a href="#" class="btn btn-custom disabled" title="No hay cuestionario disponible">Comienza tu evolución</a>
+          <% end %>
         </div>
         <div class="col-lg-6 d-none d-lg-block">
           <%= image_tag 'hero.webp', alt: 'Athernus Hero', class: 'img-fluid rounded-3 shadow-lg' %>

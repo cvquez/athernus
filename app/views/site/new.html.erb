@@ -1,37 +1,115 @@
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-lg-8">
-      <div class="card mt-5">
-        <div class="card-header">
-          <h1 class="card-title text-center mb-0"><%= @questionnaire.name %></h1>
-        </div>
-        <div class="card-body">
-          <%= simple_form_for @response, url: athernus_path, method: :post do |f| %>
-            <%= f.error_notification %>
-            <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-
-            <%= f.hidden_field :questionnaire_slug, value: @questionnaire.slug %>
-            <%= f.hidden_field :session %>
-
-            <%= f.simple_fields_for :person do |person_form| %>
-              <%= person_form.input :name %>
-              <%= person_form.input :email %>
+<div class="questionnaire-container py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card shadow-lg border-0">
+          <div class="card-header bg-primary text-white py-4">
+            <h1 class="card-title text-center mb-2"><%= @questionnaire.name %></h1>
+            <% if @questionnaire.name.present? %>
+              <p class="text-center mb-0 text-white-50"><%= @questionnaire.name %></p>
             <% end %>
+          </div>
 
-            <%= f.simple_fields_for :answers do |answer_form| %>
-              <hr>
-              <div class="mb-3 text-center">
-                <p class="mb-1"><strong><%= answer_form.object.question.content %></strong></p>
-              <%= answer_form.input :value, as: :radio_buttons, collection: 1..5, label: false, item_wrapper_class: 'form-check form-check-inline' %>
-              <%= answer_form.hidden_field :question_id %>
+          <div class="card-body p-4">
+            <%= simple_form_for @response, url: athernus_path, method: :post do |f| %>
+              <%= f.error_notification %>
+              <% if f.object.errors[:base].present? %>
+                <div class="alert alert-danger">
+                  <%= f.error_notification message: f.object.errors[:base].to_sentence %>
+                </div>
+              <% end %>
+
+              <%= f.hidden_field :questionnaire_slug, value: @questionnaire.slug %>
+              <%= f.hidden_field :session %>
+
+              <div class="personal-info-section mb-5">
+                <h3 class="section-title h4 mb-4 pb-2 border-bottom">Información Personal</h3>
+                <%= f.simple_fields_for :person do |person_form| %>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <%= person_form.input :name, 
+                          label: 'Nombre completo',
+                          placeholder: 'Ingrese su nombre completo' %>
+                    </div>
+                    <div class="col-md-6">
+                      <%= person_form.input :email,
+                          label: 'Correo electrónico',
+                          placeholder: 'ejemplo@correo.com' %>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+
+              <div class="questions-section">
+                <h3 class="section-title h4 mb-4 pb-2 border-bottom">Cuestionario</h3>
+                <%= f.simple_fields_for :answers do |answer_form| %>
+                  <div class="question-card mb-4 p-3 bg-light rounded">
+                    <p class="question-text h5 mb-3">
+                      <%= answer_form.object.question.content %>
+                    </p>
+                    <div class="ratings-container text-center">
+                      <%= answer_form.input :value,
+                          as: :radio_buttons,
+                          collection: [
+                            ['1', 'Totalmente en desacuerdo'],
+                            ['2', 'En desacuerdo'],
+                            ['3', 'Neutral'],
+                            ['4', 'De acuerdo'],
+                            ['5', 'Totalmente de acuerdo']
+                          ],
+                          label: false,
+                          item_wrapper_class: 'form-check form-check-inline' %>
+                      <%= answer_form.hidden_field :question_id %>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+
+              <div class="submit-section text-center mt-5">
+                <%= f.button :submit, 'Enviar respuestas', 
+                    class: 'btn btn-primary btn-lg px-5' %>
               </div>
             <% end %>
-            <div class="text-center">
-              <%= f.button :submit, 'Enviar', class: 'btn btn-primary' %>
-            </div>
-          <% end %>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<% content_for :styles do %>
+<style>
+  .questionnaire-container {
+    background-color: #f8f9fa;
+    min-height: 100vh;
+  }
+
+  .card {
+    border-radius: 15px;
+    overflow: hidden;
+  }
+
+  .question-card {
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0,0,0,0.1);
+  }
+
+  .question-card:hover {
+    background-color: #fff !important;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+  }
+
+  .form-check-inline {
+    margin: 0.5rem 1rem;
+  }
+
+  .section-title {
+    color: #2c3e50;
+  }
+
+  .question-text {
+    color: #2c3e50;
+    line-height: 1.6;
+  }
+</style>
+<% end %>
