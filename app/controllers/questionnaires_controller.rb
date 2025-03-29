@@ -15,14 +15,14 @@ class QuestionnairesController < ApplicationController
     respond_to do |format|
       format.html
       format.csv do
-        send_data CsvGeneratorService.(Questionnaire.all, headers: true), filename: "Questionnaires.csv", type: 'text/csv'
+        send_data CsvGeneratorService.call(Questionnaire.all, headers: true), filename: 'Questionnaires.csv', type: 'text/csv'
       end
     end
   end
 
   # GET /questionnaires/1
   def show
-    @questionnaire = Questionnaire.includes(:questionnaire_type => { :questions => :category }).find(params[:id])
+    @questionnaire = Questionnaire.includes(questionnaire_type: { questions: :category }).find(params[:id])
     @category_data = {}
     @focus_data = {}
     @questionnaire.questionnaire_type.questions.each do |question|
@@ -107,6 +107,6 @@ class QuestionnairesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def questionnaire_params
-    params.require(:questionnaire).permit(:questionnaire_type_id, :name, :slug, :status)
+    params.require(:questionnaire).permit(:questionnaire_type_id, :name, :slug, :status, :show_in_homepage)
   end
 end
