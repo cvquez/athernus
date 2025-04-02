@@ -64,8 +64,8 @@
           <div class="card mb-3" style="background-color: <%= data[:color] %>;">
             <div class="card-body">
               <h4><%= category %></h4>
-              <p><strong>Promedio:</strong> <%= data[:average].round(2) %></p>
-              <p><strong>Respuestas:</strong> <%= data[:answers] %></p>
+              <p><strong>Promedio:</strong> <%= data.dig(:average)&.round(2) %></p>
+              <p><strong>Respuestas:</strong> <%= data.dig(:answers) %></p>
             </div>
           </div>
         <% end %>
@@ -73,12 +73,12 @@
       <div class="col">
         <h5>Niveles de Madurez</h5>
         <% @category_data.each do |category, data| %>
-          <div class="card mb-3" style="background-color: <%= data[:maturity_level][:color] %>;">
+          <div class="card mb-3" style="background-color: <%= data.dig(:maturity_level, :color) %>;">
             <div class="card-body">
               <h4><%= category %></h4>
-              <p><strong>Nivel:</strong> <%= data[:maturity_level][:name] %></p>
-              <p><strong>Rango:</strong> <%= data[:maturity_level][:min] %> - <%= data[:maturity_level][:max] %></p>
-              <p><strong>Descripción:</strong> <%= data[:maturity_level][:description] %></p>
+              <p><strong>Nivel:</strong> <%= data.dig(:maturity_level, :name) %></p>
+              <p><strong>Rango:</strong> <%= data.dig(:maturity_level, :min) %> - <%= data.dig(:maturity_level, :max) %></p>
+              <p><strong>Descripción:</strong> <%= data.dig(:maturity_level, :description) %></p>
             </div>
           </div>
         <% end %>
@@ -100,10 +100,10 @@
               <% @focus_data.each do |focus, data| %>
                 <tr>
                   <td><%= focus %></td>
-                  <td><%= data[:count] %></td>
-                  <td><%= data[:total] %></td>
-                  <td><%= data[:sum] %></td>
-                  <td><%= data[:percentage] %> %</td>
+                  <td><%= data.dig(:count) %></td>
+                  <td><%= data.dig(:total) %></td>
+                  <td><%= data.dig(:sum) %></td>
+                  <td><%= data.dig(:percentage) %> %</td>
                 </tr>
               <% end %>
               </tbody>
