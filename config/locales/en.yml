@@ -207,7 +207,7 @@ en:
       more_pages:
         display_entries: "Mostrando %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b> de <b>%{total}</b> en total"    
     submit:
-      category:
+      dime:
         create: "Guardar"
         update: "Actualizar"
       brand:

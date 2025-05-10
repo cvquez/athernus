@@ -1,11 +1,11 @@
-<% model_name = t('activerecord.models.category.other', default: 'Categories') %>
+<% model_name = t('activerecord.models.dimension.other', default: 'Dimensiones') %>
 <% title = "#{model_name}" %>
 <% content_for :title, title %>
 <% content_for :page_title, title %>
 <% content_for :page_actions do %>
-  <% if authorized('categories', 'read') %>
-    <a href="<%= new_category_url %>" class="btn btn-primary"><%= feather :plus %> Nuevo</a>
-    <a href="<%= categories_path(format: :csv) %>" class="btn btn-secondary"><%= fa 'file-csv' %> CSV</a>
+  <% if authorized('dimensions', 'read') %>
+    <a href="<%= new_dimension_url %>" class="btn btn-primary"><%= feather :plus %> Nuevo</a>
+    <a href="<%= dimensions_path(format: :csv) %>" class="btn btn-secondary"><%= fa 'file-csv' %> CSV</a>
   <% end %>
 <% end %>
 <% content_for :table_filter do %>
@@ -20,22 +20,22 @@
         <tr>
           <th><%= sort_link @search, 'id', 'ID' %></th>
           
-          <th><%= sort_link @search, 'name', t('activerecord.attributes.category.name') %></th>
+          <th><%= sort_link @search, 'name', t('activerecord.attributes.dimension.name') %></th>
 
           <th class="text-center">Acciones</th>
         </tr>
         </thead>
         <tbody>
-        <% if @categories.length > 0 %>
-          <% @categories.each do |category| %>
+        <% if @dimensions.length > 0 %>
+          <% @dimensions.each do |dimension| %>
           <tr>
-            <td><%= category.id %></td>
+            <td><%= dimension.id %></td>
 
-            <td><%=  category.name %></td>
+            <td><%=  dimension.name %></td>
             <td class="text-center table-action">
-              <%= link_to_show category %>
-              <%= link_to_edit category %>
-              <%= link_to_delete category %>
+              <%= link_to_show dimension %>
+              <%= link_to_edit dimension %>
+              <%= link_to_delete dimension %>
             </td>
           </tr>
           <% end %>
@@ -43,9 +43,9 @@
           <tr>
             <td colspan="4">
               <div class="text-center fs-5 text-muted">
-                <div class="mb-2"><%= page_entries_info @categories %></div>
+                <div class="mb-2"><%= page_entries_info @dimensions %></div>
                 <% unless @search.conditions.present? %>
-                  <a href="<%= new_category_url %>" class="btn btn-primary"><%= feather :plus %> Agregar</a>
+                  <a href="<%= new_dimension_url %>" class="btn btn-primary"><%= feather :plus %> Agregar</a>
                 <% end %>
               </div>
             </td>
@@ -59,12 +59,12 @@
 <div class="row align-items-center justify-content-between">
   <div class="col-sm-12 col-md-5">
     <div class="dataTables_info" id="datatables-column-search-text-inputs_info" role="status" aria-live="polite">
-      <%= page_entries_info @categories %>
+      <%= page_entries_info @dimensions %>
     </div>
   </div>
   <div class="col-sm-12 col-md-7">
     <div class="dataTables_paginate paging_simple_numbers" id="datatables-reponsive_paginate">
-      <%= paginate @categories, window: 3 %>
+      <%= paginate @dimensions, window: 3 %>
     </div>
   </div>
 </div>

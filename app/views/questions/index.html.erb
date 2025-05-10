@@ -23,7 +23,7 @@
           <th><%= sort_link @search, 'name', t('activerecord.attributes.question.name') %></th>
           <th><%= sort_link @search, 'content', t('activerecord.attributes.question.content') %></th>
           <th><%= sort_link @search, 'questionnaire_type_id', t('activerecord.attributes.question.questionnaire_type_id') %></th>
-          <th><%= sort_link @search, 'category_id', t('activerecord.attributes.question.category_id') %></th>
+          <th><%= sort_link @search, 'dimension_id', t('activerecord.attributes.question.dimension_id') %></th>
           <th><%= sort_link @search, 'focus_area_id', t('activerecord.attributes.question.focus_area_id') %></th>
           <th><%= sort_link @search, 'business_dimension_id', t('activerecord.attributes.question.business_dimension_id') %></th>
 
@@ -39,7 +39,7 @@
               <td><%= question.name %></td>
               <td><%= question.content %></td>
               <td><%= link_to question.questionnaire_type.name, question.questionnaire_type if question.questionnaire_type %></td>
-              <td><%= link_to question.category.name, question.category if question.category %></td>
+              <td><%= link_to question.dimension.name, question.dimension if question.dimension %></td>
               <td><%= link_to question.focus_area&.name, question.focus_area if question.focus_area %></td>
               <td><%= link_to question.business_dimension&.name, question.business_dimension if question.business_dimension %></td>
               <td class="text-center table-action">

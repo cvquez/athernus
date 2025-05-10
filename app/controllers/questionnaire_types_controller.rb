@@ -84,6 +84,6 @@ class QuestionnaireTypesController < ApplicationController
     params.require(:questionnaire_type)
           .permit(:name,
                   maturity_levels_attributes: %i[id name description color min max _destroy],
-                  questions_attributes: %i[id name content category_id focus_area_id business_dimension_id _destroy])
+                  questions_attributes: %i[id name content dimension_id focus_area_id business_dimension_id _destroy])
   end
 end

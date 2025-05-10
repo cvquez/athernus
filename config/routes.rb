@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     root to: 'admin#index', as: 'admin_index'
     resources :questionnaire_types
     resources :questionnaires
-    resources :categories
+    resources :dimensions
     resources :focus_areas
     resources :business_dimensions
     resources :questions

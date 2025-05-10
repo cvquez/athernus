@@ -11,7 +11,7 @@ es:
         role_id: Rol
       business_dimension:
         name: 'Nombre'
-      category:
+      dimension:
         color: 'Color'
         name: 'Nombre'
       focus_area:
@@ -26,7 +26,7 @@ es:
         name: 'Nombre'
         content: 'Contenido'
         questionnaire_type_id: 'Tipo de cuestionario'
-        category_id: 'Categoría'
+        dimension_id: 'Dimensión'
         focus_area_id: 'Foco'
         business_dimension_id: 'Dimensión del negocio'
       questionnaire:
@@ -57,9 +57,9 @@ es:
       business_dimension:
         one: 'Dimensión del negocio'
         other: 'Dimensiones del negocio'
-      category:
-        one: 'Categoría'
-        other: 'Categorías'
+      dimension:
+        one: 'Dimensión'
+        other: 'Dimensiones'
       contact:
         one: 'Mensaje de contacto'
         other: 'Mensajes de contacto'

@@ -272,10 +272,10 @@ ALTER SEQUENCE public.business_dimensions_id_seq OWNED BY public.business_dimens
 
 
 --
--- Name: categories; Type: TABLE; Schema: public; Owner: -
+-- Name: dimensions; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.categories (
+CREATE TABLE public.dimensions (
     id bigint NOT NULL,
     name character varying,
     created_at timestamp(6) without time zone NOT NULL,
@@ -285,10 +285,10 @@ CREATE TABLE public.categories (
 
 
 --
--- Name: categories_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: dimensions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.categories_id_seq
+CREATE SEQUENCE public.dimensions_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -297,10 +297,10 @@ CREATE SEQUENCE public.categories_id_seq
 
 
 --
--- Name: categories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: dimensions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.categories_id_seq OWNED BY public.categories.id;
+ALTER SEQUENCE public.dimensions_id_seq OWNED BY public.dimensions.id;
 
 
 --
@@ -509,7 +509,7 @@ CREATE TABLE public.questions (
     name character varying,
     content text,
     questionnaire_type_id bigint NOT NULL,
-    category_id bigint NOT NULL,
+    dimension_id bigint NOT NULL,
     focus_area_id bigint NOT NULL,
     business_dimension_id bigint,
     created_at timestamp(6) without time zone NOT NULL,
@@ -771,10 +771,10 @@ ALTER TABLE ONLY public.business_dimensions ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
--- Name: categories id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: dimensions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.categories ALTER COLUMN id SET DEFAULT nextval('public.categories_id_seq'::regclass);
+ALTER TABLE ONLY public.dimensions ALTER COLUMN id SET DEFAULT nextval('public.dimensions_id_seq'::regclass);
 
 
 --
@@ -926,11 +926,11 @@ ALTER TABLE ONLY public.business_dimensions
 
 
 --
--- Name: categories categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: dimensions dimensions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.categories
-    ADD CONSTRAINT categories_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.dimensions
+    ADD CONSTRAINT dimensions_pkey PRIMARY KEY (id);
 
 
 --
@@ -1122,10 +1122,10 @@ CREATE UNIQUE INDEX index_business_dimensions_on_name ON public.business_dimensi
 
 
 --
--- Name: index_categories_on_name; Type: INDEX; Schema: public; Owner: -
+-- Name: index_dimensions_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_categories_on_name ON public.categories USING btree (name);
+CREATE UNIQUE INDEX index_dimensions_on_name ON public.dimensions USING btree (name);
 
 
 --
@@ -1171,10 +1171,10 @@ CREATE INDEX index_questions_on_business_dimension_id ON public.questions USING 
 
 
 --
--- Name: index_questions_on_category_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_questions_on_dimension_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_questions_on_category_id ON public.questions USING btree (category_id);
+CREATE INDEX index_questions_on_dimension_id ON public.questions USING btree (dimension_id);
 
 
 --
@@ -1326,7 +1326,7 @@ ALTER TABLE ONLY public.active_storage_attachments
 --
 
 ALTER TABLE ONLY public.questions
-    ADD CONSTRAINT fk_rails_d2f8aeda0b FOREIGN KEY (category_id) REFERENCES public.categories(id);
+    ADD CONSTRAINT fk_rails_d2f8aeda0b FOREIGN KEY (dimension_id) REFERENCES public.dimensions(id);
 
 
 --

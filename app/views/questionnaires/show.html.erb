@@ -60,10 +60,10 @@
     <div class="row row-cols-md-2">
       <div class="col">
         <h5>Promedio de las respuestas</h5>
-        <% @category_data.each do |category, data| %>
+        <% @dimension_data.each do |dimension, data| %>
           <div class="card mb-3" style="background-color: <%= data[:color] %>;">
             <div class="card-body">
-              <h4><%= category %></h4>
+              <h4><%= dimension %></h4>
               <p><strong>Promedio:</strong> <%= data.dig(:average)&.round(2) %></p>
               <p><strong>Respuestas:</strong> <%= data.dig(:answers) %></p>
             </div>
@@ -72,10 +72,10 @@
       </div>
       <div class="col">
         <h5>Niveles de Madurez</h5>
-        <% @category_data.each do |category, data| %>
+        <% @dimension_data.each do |dimension, data| %>
           <div class="card mb-3" style="background-color: <%= data.dig(:maturity_level, :color) %>;">
             <div class="card-body">
-              <h4><%= category %></h4>
+              <h4><%= dimension %></h4>
               <p><strong>Nivel:</strong> <%= data.dig(:maturity_level, :name) %></p>
               <p><strong>Rango:</strong> <%= data.dig(:maturity_level, :min) %> - <%= data.dig(:maturity_level, :max) %></p>
               <p><strong>Descripción:</strong> <%= data.dig(:maturity_level, :description) %></p>
@@ -117,11 +117,11 @@
     <div class="row row-cols-md-2">
       <div class="col">
         <h4>Promedio de respuestas</h4>
-        <%= pie_chart @category_data.keys.map { |category| [category, @category_data[category][:average].round(2)] }, colors: @category_data.values.map { |data| data[:color] } %>
+        <%= pie_chart @dimension_data.keys.map { |dimension| [dimension, @dimension_data[dimension][:average].round(2)] }, colors: @dimension_data.values.map { |data| data[:color] } %>
       </div>
       <div class="col">
         <h5>Niveles de madurez</h5>
-        <%= bar_chart @chart_data, colors: @category_data.values.map { |data| data[:maturity_level][:color] }, max: 75, library: { scales: { yAxes: [{ ticks: { callback: ->(_value, index, _values) { index % 5 == 0 ? (index * 3 + 15).to_s : '' } } }] } } %>
+        <%= bar_chart @chart_data, colors: @dimension_data.values.map { |data| data[:maturity_level][:color] }, max: 75, library: { scales: { yAxes: [{ ticks: { callback: ->(_value, index, _values) { index % 5 == 0 ? (index * 3 + 15).to_s : '' } } }] } } %>
       </div>
       <div class="col">
         <%= bar_chart [

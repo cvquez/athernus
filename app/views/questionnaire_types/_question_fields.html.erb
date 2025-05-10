@@ -14,7 +14,7 @@
             <%= f.input :content, input_html: { rows: 3 } %>
         </div>
         <div class="col-md-6">
-          <%= f.input :category_id, collection: Category.all, value_method: :id, include_blank: false %>
+          <%= f.input :dimension_id, collection: Dimension.all, value_method: :id, include_blank: false %>
           <%= f.input :focus_area_id, collection: FocusArea.all, value_method: :id, include_blank: false %>
           <%= f.input :business_dimension_id, collection: BusinessDimension.all, value_method: :id, include_blank: false %>
         </div>

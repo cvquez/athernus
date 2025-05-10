@@ -15,7 +15,7 @@ class QuestionsController < ApplicationController
     respond_to do |format|
       format.html
       format.csv do
-        send_data CsvGeneratorService.(Question.all, headers: true), filename: "Questions.csv", type: 'text/csv'
+        send_data CsvGeneratorService.call(Question.all, headers: true), filename: 'Questions.csv', type: 'text/csv'
       end
     end
   end
@@ -80,6 +80,7 @@ class QuestionsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def question_params
-    params.require(:question).permit(:name, :content, :questionnaire_type_id, :category_id, :focus_area_id, :business_dimension_id)
+    params.require(:question).permit(:name, :content, :questionnaire_type_id, :dimension_id, :focus_area_id,
+                                     :business_dimension_id)
   end
 end

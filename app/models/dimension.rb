@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: categories
+# Table name: dimensions
 #
 #  id         :bigint           not null, primary key
 #  color      :string           default("#ffffff")
@@ -12,10 +12,9 @@
 #
 # Indexes
 #
-#  index_categories_on_name  (name) UNIQUE
+#  index_dimensions_on_name  (name) UNIQUE
 #
-class Category < ApplicationRecord
+class Dimension < ApplicationRecord
   ransack_alias :search, :name # <-- Add or edit searchable fields
   paginates_per 10
-
 end

@@ -97,12 +97,12 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_19_220418) do
     t.index ["name"], name: "index_business_dimensions_on_name", unique: true
   end
 
-  create_table "categories", force: :cascade do |t|
+  create_table "dimensions", force: :cascade do |t|
     t.string "name"
+    t.string "color", default: "#ffffff"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "color", default: "#ffffff"
-    t.index ["name"], name: "index_categories_on_name", unique: true
+    t.index ["name"], name: "index_dimensions_on_name", unique: true
   end
 
   create_table "focus_areas", force: :cascade do |t|
@@ -163,13 +163,13 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_19_220418) do
     t.string "name"
     t.text "content"
     t.bigint "questionnaire_type_id", null: false
-    t.bigint "category_id", null: false
+    t.bigint "dimension_id", null: false
     t.bigint "focus_area_id", null: false
     t.bigint "business_dimension_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["business_dimension_id"], name: "index_questions_on_business_dimension_id"
-    t.index ["category_id"], name: "index_questions_on_category_id"
+    t.index ["dimension_id"], name: "index_questions_on_dimension_id"
     t.index ["focus_area_id"], name: "index_questions_on_focus_area_id"
     t.index ["questionnaire_type_id"], name: "index_questions_on_questionnaire_type_id"
   end
@@ -239,7 +239,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_19_220418) do
   add_foreign_key "maturity_levels", "questionnaire_types"
   add_foreign_key "questionnaires", "questionnaire_types"
   add_foreign_key "questions", "business_dimensions"
-  add_foreign_key "questions", "categories"
+  add_foreign_key "questions", "dimensions"
   add_foreign_key "questions", "focus_areas"
   add_foreign_key "questions", "questionnaire_types"
   add_foreign_key "responses", "people"

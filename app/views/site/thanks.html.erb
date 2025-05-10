@@ -10,23 +10,23 @@
 
           <div class="card-body p-4">
             <div class="row g-4">
-              <!-- Resultados por Categoría -->
+              <!-- Resultados por Dimensión -->
               <div class="col-12 col-md-<%= @dimension_results.present? ? '4' : '6' %>">
                 <div class="result-card h-100 p-3 p-md-4 bg-light rounded">
-                  <h3 class="section-title h5 mb-3 text-center">Distribución por Categoría</h3>
+                  <h3 class="section-title h5 mb-3 text-center">Distribución por Dimensión</h3>
                   <div class="chart-container">
-                    <canvas id="categoryChart"></canvas>
+                    <canvas id="dimensionChart"></canvas>
                   </div>
                 </div>
               </div>
 
-              <!-- Resultados por Dimensión (opcional) -->
-              <% if @dimension_results.present? %>
+              <!-- Resultados por Dimensión de Negocio (opcional) -->
+              <% if @business_dimension_results.present? %>
                 <div class="col-12 col-md-4">
                   <div class="result-card h-100 p-3 p-md-4 bg-light rounded">
-                    <h3 class="section-title h5 mb-3 text-center">Distribución por Dimensión</h3>
+                    <h3 class="section-title h5 mb-3 text-center">Distribución por Dimensión de Negocio</h3>
                     <div class="chart-container">
-                      <canvas id="dimensionChart"></canvas>
+                      <canvas id="businessDimensionChart"></canvas>
                     </div>
                   </div>
                 </div>
@@ -209,26 +209,26 @@
     }
 
     // Datos de las gráficas
-    const categoryData = <%= raw @category_results.to_json %>;
     const dimensionData = <%= raw @dimension_results.to_json %>;
+    const businessDimensionData = <%= raw @business_dimension_results.to_json %>;
     const focusData = <%= raw @focus_results.to_json %>;
     const overallScore = <%= @overall_score %>;
 
     console.log('Datos recibidos:', {
-      categoryData,
       dimensionData,
+      businessDimensionData,
       focusData,
       overallScore
     });
 
     // Inicializar gráficas
-    initializeChart('categoryChart', categoryData, 'Categorías');
     initializeChart('dimensionChart', dimensionData, 'Dimensiones');
+    initializeChart('businessDimensionChart', businessDimensionData, 'Dimensiones');
     initializeChart('focusChart', focusData, 'Focos');
 
     // Manejar cambios de tamaño de ventana
     window.addEventListener('resize', function() {
-      const charts = Chart.getChart('categoryChart');
+      const charts = Chart.getChart('dimensionChart');
       if (charts) {
         charts.options.plugins.legend.position = window.innerWidth < 768 ? 'bottom' : 'right';
         charts.update();

@@ -15,8 +15,8 @@ es:
       defaults:
         active: 'Desactivar para ocultar'
     placeholders:
-      category:
-        name: 'Ingrese el nombre de la categoría'
-        color: 'Seleccione un color para identificar visualmente esta categoría'   
+      dimension:
+        name: 'Ingrese el nombre de la dimensión'
+        color: 'Seleccione un color para identificar visualmente esta dimensión'   
     
       

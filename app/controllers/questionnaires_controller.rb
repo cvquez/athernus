@@ -22,22 +22,22 @@ class QuestionnairesController < ApplicationController
 
   # GET /questionnaires/1
   def show
-    @questionnaire = Questionnaire.includes(questionnaire_type: { questions: :category }).find(params[:id])
-    @category_data = {}
+    @questionnaire = Questionnaire.includes(questionnaire_type: { questions: :dimension }).find(params[:id])
+    @dimension_data = {}
     @focus_data = {}
     @questionnaire.questionnaire_type.questions.each do |question|
-      category = question.category
+      dimension = question.dimension
       q_average = Answer.where(question_id: question.id).average(:value).to_f.round(2)
       q_count = Answer.where(question_id: question.id).count
-      @category_data[category.name] ||= { average: 0, answers: 0, color: category.color }
-      @category_data[category.name][:average] += q_average
-      @category_data[category.name][:answers] += q_count
+      @dimension_data[dimension.name] ||= { average: 0, answers: 0, color: dimension.color }
+      @dimension_data[dimension.name][:average] += q_average
+      @dimension_data[dimension.name][:answers] += q_count
       focus = question.focus_area
       @focus_data[focus.name] ||= { count: 0, sum: 0 }
       @focus_data[focus.name][:count] += 1
       @focus_data[focus.name][:sum] += q_average
     end
-    @category_data.each do |category, data|
+    @dimension_data.each do |dimension, data|
       maturity_level = @questionnaire.questionnaire_type.calculate_maturity_level(data[:average])
       data[:maturity_level] = maturity_level
     end
@@ -46,7 +46,7 @@ class QuestionnairesController < ApplicationController
       data[:total] = (data[:count] * 5)
       data[:percentage] = (data[:sum] * 100 / data[:total]).round(2)
     end
-    @chart_data = @category_data.map { |category, data| [category, data[:average].round(2)] }.to_h
+    @chart_data = @dimension_data.map { |dimension, data| [dimension, data[:average].round(2)] }.to_h
   end
 
   # GET /questionnaires/new

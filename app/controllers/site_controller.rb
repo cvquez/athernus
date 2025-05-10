@@ -43,17 +43,17 @@ class SiteController < ApplicationController
       return
     end
 
-    # Calcular resultados por categoría
-    category_scores = answers.joins(question: :category)
-                             .group('categories.name')
-                             .select('categories.name, CAST(SUM(answers.value) AS FLOAT) as total_score, COUNT(*) * 5 as max_possible')
-                             .map do |result|
+    # Calcular resultados por dimensión
+    dimension_scores = answers.joins(question: :dimension)
+                              .group('dimensions.name')
+                              .select('dimensions.name, CAST(SUM(answers.value) AS FLOAT) as total_score, COUNT(*) * 5 as max_possible')
+                              .map do |result|
       score = ((result.total_score / result.max_possible) * 100).round(2)
-      Rails.logger.info "Categoría #{result.name}: #{result.total_score}/#{result.max_possible} = #{score}%"
+      Rails.logger.info "Dimensión #{result.name}: #{result.total_score}/#{result.max_possible} = #{score}%"
       [result.name, score]
     end.to_h
-    @category_results = category_scores
-    Rails.logger.info "Porcentajes por categoría: #{@category_results.inspect}"
+    @dimension_results = dimension_scores
+    Rails.logger.info "Porcentajes por dimensión: #{@dimension_results.inspect}"
 
     # Calcular resultados por dimensión
     begin

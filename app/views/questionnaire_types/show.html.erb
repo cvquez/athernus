@@ -32,7 +32,7 @@
             <th>#</th>
             <th><%= t('activerecord.attributes.question.name') %></th>
             <th><%= t('activerecord.attributes.question.content') %></th>
-            <th><%= t('activerecord.attributes.question.category') %></th>
+            <th><%= t('activerecord.attributes.question.dimension') %></th>
             <th><%= t('activerecord.attributes.question.focus_area') %></th>
             <th><%= t('activerecord.attributes.question.business_dimension') %></th>
           </tr>
@@ -43,7 +43,7 @@
             <td><%= index + 1 %></td>
             <td><%= question.name %></td>
             <td><%= question.content %></td>
-            <td><span class="badge bg-secondary"><%= question.category.name %></span></td>
+            <td><span class="badge bg-secondary"><%= question.dimension.name %></span></td>
             <td><span class="badge bg-info"><%= question.focus_area.name %></span></td>
             <td><%= question.business_dimension&.name ? content_tag(:span, question.business_dimension.name, class: "badge bg-success") : "-" %></td>
           </tr>
